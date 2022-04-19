@@ -1,22 +1,44 @@
 import React from 'react'
-import { Text, View, StyleSheet } from 'react-native'
-import globalStyles from '../../styles/global'
+import { StyleSheet, ScrollView, Text } from 'react-native'
+import Colors from '../../styles/Colors'
+import AZButton from '../ui/AZButton'
+import AZCard from '../ui/AZCard'
+import AZInput from '../ui/AZInput'
+import AZSingleView from '../ui/AZSingleView'
+
+const signupBtn = { outerStyle: { marginVertical: 8, }, innerStyle: { backgroundColor: Colors.secondary, } }
 
 const SignupScreen = ({ route, navigation }) => {
   return (
-    <View style={[styles.screen, globalStyles.screenContainer]}>
-        <Text>Hello world</Text>
-    </View>
+    <ScrollView>
+      <AZSingleView>
+        <AZCard>
+          <Text style={styles.login}>
+            Already have an account?{" "}
+            <Text style={styles.link} onPress={() => navigation.navigate("Login")}>Log in here</Text>
+          </Text>
+          <AZInput label="First Name" />
+          <AZInput label="Last Name" />
+          <AZInput label="Email Address" />
+          <AZInput label="Password" secureTextEntry/>
+          <AZInput label="Confirm Password" secureTextEntry/>
+          <AZButton title="Sign Up" outerStyle={signupBtn.outerStyle} innerStyle={signupBtn.innerStyle} />
+        </AZCard>
+      </AZSingleView>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
-    screen: {
-        flex: 1,
-        backgroundColor: 'red',
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
+  login: {
+    textAlign: 'center',
+    paddingTop: 10
+  },
+  link: {
+    textDecorationLine: 'underline',
+    textDecorationColor: Colors.primary,
+    color: Colors.primary
+  }
 })
 
 export default SignupScreen

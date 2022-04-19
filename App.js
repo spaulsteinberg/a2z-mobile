@@ -8,20 +8,26 @@ import Colors from './src/styles/Colors';
 
 const Stack = createNativeStackNavigator()
 
+const NoAuthNavigation = () => {
+  return (
+    <Stack.Navigator screenOptions={{
+      headerStyle: { backgroundColor: Colors.primary },
+      headerTintColor: 'white',
+      headerTitleAlign: 'center'
+    }}>
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Signup" component={SignupScreen} />
+    </Stack.Navigator>
+  )
+}
+
 export default function App() {
   return (
     <>
       <StatusBar style="light" />
       <SafeAreaView style={styles.container}>
         <NavigationContainer>
-          <Stack.Navigator screenOptions={{
-            headerStyle: { backgroundColor: Colors.primary },
-            headerTintColor: 'white',
-            headerTitleAlign: 'center'
-          }}>
-            <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="Signup" component={SignupScreen} />
-          </Stack.Navigator>
+            <NoAuthNavigation />
         </NavigationContainer>
       </SafeAreaView>
     </>
