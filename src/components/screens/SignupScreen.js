@@ -1,10 +1,8 @@
 import React from 'react'
 import { StyleSheet, ScrollView, Text } from 'react-native'
 import Colors from '../../styles/Colors'
-import AZButton from '../ui/AZButton'
-import AZCard from '../ui/AZCard'
-import AZInput from '../ui/AZInput'
-import AZSingleView from '../ui/AZSingleView'
+import { AZButton, AZCard, AZInput, AZSingleView } from '../ui'
+
 
 const signupBtn = { outerStyle: { marginVertical: 8, }, innerStyle: { backgroundColor: Colors.secondary, } }
 

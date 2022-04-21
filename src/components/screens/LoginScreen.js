@@ -1,11 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ScrollView } from 'react-native'
+import { login } from '../../firebase/api'
 import Colors from '../../styles/Colors'
-import AZButton from '../ui/AZButton'
-import AZCard from '../ui/AZCard'
-import AZDivider from '../ui/AZDivider'
-import AZInput from '../ui/AZInput'
-import AZSingleView from '../ui/AZSingleView'
+import { AZButton, AZCard, AZDivider, AZInput, AZSingleView } from '../ui'
 
 const dividerStyle = { paddingVertical: 10 }
 const outerBtnStyle = { marginVertical: 8 }
@@ -26,8 +23,11 @@ const signupBtn = {
 
 const LoginScreen = ({ route, navigation }) => {
 
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
     const handleLoginPress = () => {
-        console.log("login press")
+        login(email, password).then(res => console.log(res)).catch(err => console.log(err))
     }
 
     const handleRedirectToSignupPress = () => navigation.navigate("Signup")
@@ -36,8 +36,23 @@ const LoginScreen = ({ route, navigation }) => {
         <ScrollView>
             <AZSingleView>
                 <AZCard>
-                    <AZInput label="Email Address" />
-                    <AZInput label="Password" />
+                    <AZInput
+                        label="Email Address"
+                        autoCapitalize='none'
+                        autoComplete='off'
+                        autoCorrect={false}
+                        value={email}
+                        onChangeText={setEmail}
+                    />
+                    <AZInput
+                        label="Password"
+                        autoCapitalize='none'
+                        autoComplete='off'
+                        autoCorrect={false} 
+                        secureTextEntry 
+                        value={password}
+                        onChangeText={setPassword}
+                     />
                     <AZButton title="Login" outerStyle={outerBtnStyle} onPress={handleLoginPress} />
                     <AZDivider style={dividerStyle}>or</AZDivider>
                     <AZButton

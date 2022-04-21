@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     },
     line: {
         backgroundColor: 'black',
-        height: 2,
+        height: 1,
         flex: 1,
         alignSelf: 'center'
     },
