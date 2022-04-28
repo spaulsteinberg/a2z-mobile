@@ -1,11 +1,12 @@
 import React from 'react'
 import { View, Text, TextInput, StyleSheet } from 'react-native'
+import Colors from '../../styles/Colors'
 
-const AZInput = ({ label, style, ...rest }) => {
+const AZInput = ({ label, style, disabled, ...rest }) => {
   return (
     <View style={[styles.container, style]}>
         <Text style={styles.label}>{label}</Text>
-        <TextInput style={styles.input} {...rest} />
+        <TextInput style={[styles.input, disabled && styles.disabled]} editable={!disabled} {...rest} />
     </View>
   )
 }
@@ -21,7 +22,10 @@ const styles = StyleSheet.create({
         padding: 8,
         borderRadius: 8,
         borderWidth: 1,
-        borderColor: 'black'
+        borderColor: Colors.primary
+    },
+    disabled: {
+        backgroundColor: 'lightgray'
     }
 })
 

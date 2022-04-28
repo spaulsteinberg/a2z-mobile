@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { ScrollView } from 'react-native'
+import { ActivityIndicator, Alert } from 'react-native'
 import { login } from '../../firebase/api'
 import Colors from '../../styles/Colors'
 import { AZButton, AZCard, AZDivider, AZInput, AZSingleView } from '../ui'
@@ -26,8 +27,17 @@ const LoginScreen = ({ route, navigation }) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
+    const [loading, setLoading] = useState(false)
+
     const handleLoginPress = () => {
-        login(email, password).then(res => console.log(res)).catch(err => console.log(err))
+        setLoading(true)
+        login(email, password)
+        .then(_ => {
+          //  setLoading(false)
+        })
+        .catch(err => Alert.alert('Authentication failed.', 'Please check your username and password and try again', [
+            { text: 'OK', onPress: () => setLoading(false) }
+        ]))
     }
 
     const handleRedirectToSignupPress = () => navigation.navigate("Signup")
@@ -42,6 +52,7 @@ const LoginScreen = ({ route, navigation }) => {
                         autoCorrect={false}
                         value={email}
                         onChangeText={setEmail}
+                        disabled={loading}
                     />
                     <AZInput
                         label="Password"
@@ -51,8 +62,9 @@ const LoginScreen = ({ route, navigation }) => {
                         secureTextEntry 
                         value={password}
                         onChangeText={setPassword}
+                        disabled={loading}
                      />
-                    <AZButton title="Login" outerStyle={outerBtnStyle} onPress={handleLoginPress} />
+                    { loading ? <ActivityIndicator /> : <AZButton title="Login" outerStyle={outerBtnStyle} onPress={handleLoginPress} /> }
                     <AZDivider style={dividerStyle}>or</AZDivider>
                     <AZButton
                         title="Sign Up"
@@ -61,6 +73,7 @@ const LoginScreen = ({ route, navigation }) => {
                         textStyle={signupBtn.textStyle}
                         rippleColor={Colors.secondary}
                         onPress={handleRedirectToSignupPress}
+                        disabled={loading}
                     />
                 </AZCard>
             </AZSingleView>
