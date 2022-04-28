@@ -39,7 +39,6 @@ const LoginScreen = ({ route, navigation }) => {
                     <AZInput
                         label="Email Address"
                         autoCapitalize='none'
-                        autoComplete='off'
                         autoCorrect={false}
                         value={email}
                         onChangeText={setEmail}

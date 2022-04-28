@@ -4,7 +4,6 @@ import { auth } from '../../firebase/config'
 
 export const AuthContext = createContext({
     user: null,
-    logout: () => {}
 })
 
 const AuthContextProvider = ({ children }) => {
@@ -20,13 +19,8 @@ const AuthContextProvider = ({ children }) => {
         return unsubscribe;
     }, [])
 
-    const logout = () => {
-        setUser(null)
-    }
-
     const value = {
         user,
-        logout
     }
 
     return <AuthContext.Provider value={value}>

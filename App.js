@@ -8,16 +8,20 @@ import SignupScreen from './src/components/screens/SignupScreen';
 import StreamScreen from './src/components/screens/StreamScreen';
 import AuthContextProvider, { AuthContext } from './src/store/context/AuthContext';
 import Colors from './src/styles/Colors';
+import AZIconButton from './src/components/ui/AZIconButton';
+import { logout } from './src/firebase/api';
 
 const Stack = createNativeStackNavigator()
 
+const topOptions = {
+  headerStyle: { backgroundColor: Colors.primary },
+  headerTintColor: 'white',
+  headerTitleAlign: 'center'
+}
+
 const NoAuthNavigation = () => {
   return (
-    <Stack.Navigator screenOptions={{
-      headerStyle: { backgroundColor: Colors.primary },
-      headerTintColor: 'white',
-      headerTitleAlign: 'center'
-    }}>
+    <Stack.Navigator screenOptions={topOptions}>
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Signup" component={SignupScreen} />
     </Stack.Navigator>
@@ -26,8 +30,8 @@ const NoAuthNavigation = () => {
 
 const AuthNavigation = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="StreamScreen" component={StreamScreen} />
+    <Stack.Navigator screenOptions={{...topOptions, headerRight: () => <AZIconButton size={24} color="white" icon="settings-outline" onPress={() => logout().then(_ => {}).catch(err => console.log(err))} />}}>
+      <Stack.Screen name="StreamScreen" component={StreamScreen} options={{ title: 'Tickets' }} />
     </Stack.Navigator>
   )
 }
