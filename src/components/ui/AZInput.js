@@ -1,14 +1,22 @@
-import React from 'react'
-import { View, Text, TextInput, StyleSheet } from 'react-native'
+import React, { useState } from 'react'
+import { View, Text, TextInput, StyleSheet, Platform } from 'react-native'
 import Colors from '../../styles/Colors'
 
 const AZInput = ({ label, style, disabled, ...rest }) => {
-  return (
-    <View style={[styles.container, style]}>
-        <Text style={styles.label}>{label}</Text>
-        <TextInput style={[styles.input, disabled && styles.disabled]} editable={!disabled} {...rest} />
-    </View>
-  )
+
+    const [inFocus, setInFocus] = useState(false)
+    return (
+        <View style={[styles.container, style]}>
+            <Text style={styles.label}>{label}</Text>
+            <TextInput
+                style={[ Platform.OS === 'web' && { outlineStyle: 'none' }, styles.input, disabled && styles.disabled, inFocus && styles.inFocus]}
+                editable={!disabled} 
+                onFocus={() => setInFocus(true)}
+                onBlur={() => setInFocus(false)}
+                {...rest} 
+                />
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
@@ -26,6 +34,13 @@ const styles = StyleSheet.create({
     },
     disabled: {
         backgroundColor: 'lightgray'
+    },
+    inFocus: {
+        borderColor: Colors.primary,
+        shadowColor: Colors.primary,
+        shadowOffset: { width: 0, height: 0 },
+        shadowRadius: 4,
+        shadowOpacity: 0.9,
     }
 })
 
