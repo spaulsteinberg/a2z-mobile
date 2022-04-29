@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { StyleSheet, ScrollView, Text } from 'react-native'
-import Colors from '../../styles/Colors'
-import { AZButton, AZCard, AZInput, AZSingleView } from '../ui'
+import Colors from '../styles/Colors'
+import { AZButton, AZCard, AZInput, AZSingleView } from '../components/ui'
 
 
 const signupBtn = { outerStyle: { marginVertical: 8, }, innerStyle: { backgroundColor: Colors.secondary, } }

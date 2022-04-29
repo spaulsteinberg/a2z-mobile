@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { ScrollView } from 'react-native'
 import { ActivityIndicator, Alert } from 'react-native'
-import { login } from '../../firebase/api'
-import Colors from '../../styles/Colors'
-import { AZButton, AZCard, AZDivider, AZInput, AZSingleView } from '../ui'
+import { login } from '../firebase/api'
+import Colors from '../styles/Colors'
+import { AZButton, AZCard, AZDivider, AZInput, AZSingleView } from '../components/ui'
 
 const dividerStyle = { paddingVertical: 10 }
 const outerBtnStyle = { marginVertical: 8 }
