@@ -2,22 +2,22 @@ import React, { useState } from 'react'
 import { View, Text, TextInput, StyleSheet, Platform } from 'react-native'
 import Colors from '../../styles/Colors'
 
-const AZInput = ({ label, style, disabled, ...rest }) => {
-
+const AZInput = React.forwardRef(({ label, style, disabled, ...rest }, ref) => {
     const [inFocus, setInFocus] = useState(false)
     return (
         <View style={[styles.container, style]}>
             <Text style={styles.label}>{label}</Text>
             <TextInput
-                style={[ Platform.OS === 'web' && { outlineStyle: 'none' }, styles.input, disabled && styles.disabled, inFocus && styles.inFocus]}
-                editable={!disabled} 
+                ref={ref}
+                style={[Platform.OS === 'web' && { outlineStyle: 'none' }, styles.input, disabled && styles.disabled, inFocus && styles.inFocus]}
+                editable={!disabled}
                 onFocus={() => setInFocus(true)}
                 onBlur={() => setInFocus(false)}
-                {...rest} 
-                />
+                {...rest}
+            />
         </View>
     )
-}
+})
 
 const styles = StyleSheet.create({
     container: {
