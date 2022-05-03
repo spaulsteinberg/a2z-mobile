@@ -1,10 +1,8 @@
 import React, { useEffect, useRef } from 'react'
 import { StyleSheet, ScrollView, Text } from 'react-native'
 import Colors from '../styles/Colors'
-import { AZButton, AZCard, AZInput, AZSingleView } from '../components/ui'
-
-
-const signupBtn = { outerStyle: { marginVertical: 8, }, innerStyle: { backgroundColor: Colors.secondary, } }
+import { AZCard, AZSingleView } from '../components/ui'
+import SignupForm from '../components/auth/SignupForm'
 
 const SignupScreen = ({ route, navigation }) => {
 
@@ -22,12 +20,7 @@ const SignupScreen = ({ route, navigation }) => {
             Already have an account?{" "}
             <Text style={styles.link} onPress={() => navigation.navigate("Login")}>Log in here</Text>
           </Text>
-          <AZInput ref={fnameRef} label="First Name" />
-          <AZInput label="Last Name" />
-          <AZInput label="Email Address" />
-          <AZInput label="Password" secureTextEntry/>
-          <AZInput label="Confirm Password" secureTextEntry/>
-          <AZButton title="Sign Up" outerStyle={signupBtn.outerStyle} innerStyle={signupBtn.innerStyle} />
+          <SignupForm />
         </AZCard>
       </AZSingleView>
     </ScrollView>

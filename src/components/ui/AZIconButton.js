@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
       margin: 8
     },
     innerContainer: {
-      paddingHorizontal: 10,
+      paddingHorizontal: 5,
       paddingVertical: 6
     },
     pressed: {

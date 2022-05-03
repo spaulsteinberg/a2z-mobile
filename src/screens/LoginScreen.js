@@ -35,7 +35,7 @@ const LoginScreen = ({ route, navigation }) => {
         .then(_ => {
           //  setLoading(false)
         })
-        .catch(err => Alert.alert('Authentication failed.', 'Please check your username and password and try again', [
+        .catch(err => Alert.alert('Authentication failed.', 'Please check your username and password and try again.', [
             { text: 'OK', onPress: () => setLoading(false) }
         ]))
     }
