@@ -1,4 +1,7 @@
 import login from './login'
+import signup from './signup'
 import logout from './logout'
+import createAccount from './createAccount'
+import getUserToken from './getUserToken'
 
-export { login, logout }
+export { login, signup, logout, createAccount, getUserToken }
