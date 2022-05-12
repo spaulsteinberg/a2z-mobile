@@ -1,10 +1,12 @@
 import React from 'react'
-import { View, Text, Alert, StyleSheet } from 'react-native'
+import { View, Alert, StyleSheet } from 'react-native'
+import SettingTab from '../components/settings/SettingTab'
 import { AZButton } from '../components/ui'
 import { logout } from '../firebase/api'
 import Colors from '../styles/Colors'
 
-const Settings = () => {
+const Profile = () => {
+    
 
     const handleLogoutClick = () => {
         Alert.alert('Logout', 'Are you sure you want to logout?', [
@@ -15,10 +17,10 @@ const Settings = () => {
     }
   return (
     <View style={styles.container}>
-        <Text>My Profile</Text>
-        <Text>Email Change</Text>
-        <Text>Password Change</Text>
-        <AZButton title="Logout" innerStyle={styles.buttonStyle} onPress={handleLogoutClick} />
+        <SettingTab text="My Profile" onPress={() => console.log("click")}/>
+        <SettingTab text="Change Email" onPress={() => console.log("click")}/>
+        <SettingTab text="Change Password" onPress={() => console.log("click")}/>
+        <AZButton title="Logout" outerStyle={styles.buttonOuter} innerStyle={styles.buttonStyle} onPress={handleLogoutClick} />
     </View>
   )
 }
@@ -32,7 +34,10 @@ const styles = StyleSheet.create({
     },
     buttonStyle: {
         backgroundColor: Colors.error
+    },
+    buttonOuter: {
+        marginVertical: 12
     }
 })
 
-export default Settings
+export default Profile
