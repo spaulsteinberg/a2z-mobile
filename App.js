@@ -6,6 +6,7 @@ import { StyleSheet, SafeAreaView } from 'react-native';
 import AuthContextProvider, { AuthContext } from './src/store/context/AuthContext';
 import Colors from './src/styles/Colors';
 import { AuthNavigation, NoAuthNavigation } from './src/routes';
+import ErrorBoundary from './src/screens/ErrorBoundary';
 
 const Stack = createNativeStackNavigator()
 
@@ -25,11 +26,13 @@ export default function App() {
     <>
       <StatusBar style="light" />
       <SafeAreaView style={styles.container}>
-        <AuthContextProvider>
-          <NavigationContainer>
-            <Navigation />
-          </NavigationContainer>
-        </AuthContextProvider>
+        <ErrorBoundary>
+          <AuthContextProvider>
+            <NavigationContainer>
+              <Navigation />
+            </NavigationContainer>
+          </AuthContextProvider>
+        </ErrorBoundary>
       </SafeAreaView>
     </>
   );

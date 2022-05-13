@@ -24,7 +24,7 @@ const AuthContextProvider = ({ children }) => {
     }
 
     return <AuthContext.Provider value={value}>
-        { loading ? <ActivityIndicator /> : children }
+        { loading ? <ActivityIndicator style={{marginTop: 100}} /> : children }
         </AuthContext.Provider>
 }
 
