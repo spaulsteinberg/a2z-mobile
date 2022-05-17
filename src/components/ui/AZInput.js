@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { View, Text, TextInput, StyleSheet, Platform } from 'react-native'
 import Colors from '../../styles/Colors'
 
-const AZInput = React.forwardRef(({ label, style, disabled, onBlur, invalid, ...rest }, ref) => {
+const AZInput = React.forwardRef(({ label, style, disabled, invalid, ...rest }, ref) => {
     return (
         <View style={[styles.container, style]}>
             <Text style={styles.label}>{label}</Text>

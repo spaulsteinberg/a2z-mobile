@@ -5,7 +5,7 @@ import { AZButton } from '../components/ui'
 import { logout } from '../firebase/api'
 import Colors from '../styles/Colors'
 
-const Profile = () => {
+const Settings = ({ navigation }) => {
 
     const { width } = useWindowDimensions()
 
@@ -31,7 +31,7 @@ const Profile = () => {
         <View style={[styles.container, containerStyle]}>
             <View style={innerContainerStyle}>
                 <SettingTab text="My Profile" onPress={() => console.log("click")} />
-                <SettingTab text="Change Email" onPress={() => console.log("click")} />
+                <SettingTab text="Change Email" onPress={() => navigation.navigate("EmailChange")} />
                 <SettingTab text="Change Password" onPress={() => console.log("click")} />
                 <AZButton title="Logout" outerStyle={styles.buttonOuter} innerStyle={styles.buttonStyle} onPress={handleLogoutClick} />
             </View>
@@ -54,4 +54,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Profile
+export default Settings

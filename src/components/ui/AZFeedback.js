@@ -2,10 +2,10 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import Colors from '../../styles/Colors'
 
-const AZFeedback = ({ message, severity }) => {
+const AZFeedback = ({ message, severity, ...rest }) => {
   return (
-    <View>
-        <Text style={severity === "error" ? styles.error : null}>{message}</Text>
+    <View {...rest}>
+        <Text style={severity === "error" ? styles.error : severity === "success" ? styles.success : null}>{message}</Text>
     </View>
   )
 }
@@ -13,6 +13,9 @@ const AZFeedback = ({ message, severity }) => {
 const styles = StyleSheet.create({
     error: {
         color: Colors.error
+    },
+    success: {
+      color: 'green'
     }
 })
 
