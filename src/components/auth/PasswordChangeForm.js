@@ -12,7 +12,7 @@ const PasswordChangeForm = ({ currentPassword, newPassword, confirmNewPassword, 
                 autoComplete='off'
                 autoCorrect={false}
                 secureTextEntry
-                style={{ marginVertical: 4 }}
+                style={{ marginVertical: 12 }}
             />
             <AZInput
                 value={newPassword}
@@ -22,7 +22,7 @@ const PasswordChangeForm = ({ currentPassword, newPassword, confirmNewPassword, 
                 autoComplete='off'
                 secureTextEntry
                 autoCorrect={false}
-                style={{ marginVertical: 4 }}
+                style={{ marginVertical: 12 }}
             />
             <AZInput
                 value={confirmNewPassword}
@@ -32,7 +32,7 @@ const PasswordChangeForm = ({ currentPassword, newPassword, confirmNewPassword, 
                 autoComplete='off'
                 secureTextEntry
                 autoCorrect={false}
-                style={{ marginVertical: 4 }}
+                style={{ marginVertical: 12 }}
             />
         </>
     )

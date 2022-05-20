@@ -9,14 +9,14 @@ const EmailChangeForm = ({ newEmail, confirmNewEmail, confirmPassword, setNewEma
                 onChangeText={setNewEmail} 
                 placeholder="Enter your new email"
                 autoCapitalize='none'
-                style={{marginVertical: 4}} 
+                style={{marginVertical: 12}} 
             />
             <AZInput 
                 value={confirmNewEmail}
                 onChangeText={setConfirmNewEmail} 
                 placeholder="Confirm your new email" 
                 autoCapitalize='none'
-                style={{marginVertical: 4}} 
+                style={{marginVertical: 12}} 
             />
             <AZInput
                 value={confirmPassword}
@@ -26,7 +26,7 @@ const EmailChangeForm = ({ newEmail, confirmNewEmail, confirmPassword, setNewEma
                 autoComplete='off'
                 autoCorrect={false}
                 secureTextEntry
-                style={{marginVertical: 4}}
+                style={{marginVertical: 12}}
             />
         </>
     )

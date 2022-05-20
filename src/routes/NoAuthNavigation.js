@@ -1,5 +1,5 @@
 import React from 'react';
-import { LoginScreen, SignupScreen } from '../screens';
+import { ForgotPasswordScreen, LoginScreen, SignupScreen } from '../screens';
 import getNavHeaderOptions from '../shared/functions/getNavHeaderStyles';
 
 const topOptions = getNavHeaderOptions()
@@ -9,6 +9,7 @@ const NoAuthNavigation = ({ Stack }) => {
         <Stack.Navigator screenOptions={topOptions}>
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Signup" component={SignupScreen} options={{ title: 'Sign Up' }} />
+            <Stack.Screen name="Forgot Password" component={ForgotPasswordScreen} />
         </Stack.Navigator>
     )
 }

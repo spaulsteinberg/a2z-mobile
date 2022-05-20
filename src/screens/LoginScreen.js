@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ScrollView } from 'react-native'
+import { ScrollView, Text } from 'react-native'
 import { ActivityIndicator, Alert } from 'react-native'
 import { login } from '../firebase/api'
 import Colors from '../styles/Colors'
@@ -75,6 +75,12 @@ const LoginScreen = ({ route, navigation }) => {
                         onPress={handleRedirectToSignupPress}
                         disabled={loading}
                     />
+                    <Text 
+                        style={{textAlign: 'center', color: Colors.primary, textDecorationLine: 'underline', marginTop: 12}}
+                        onPress={() => navigation.navigate("Forgot Password")}
+                        >
+                            Forgot Password?
+                    </Text>
                 </AZCard>
             </AZSingleView>
         </ScrollView>

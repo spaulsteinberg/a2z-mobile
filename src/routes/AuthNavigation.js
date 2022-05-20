@@ -1,10 +1,9 @@
 import React from 'react';
 import { AZIconButton } from '../components/ui';
-import { StreamScreen, Settings, CredentialChange } from '../screens';
+import { StreamScreen, Settings, CredentialChange, ProfileScreen } from '../screens';
 import { useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
-import ProfileScreen from '../screens/ProfileScreen';
 import Colors from '../styles/Colors';
 import getNavHeaderOptions from '../shared/functions/getNavHeaderStyles';
 
