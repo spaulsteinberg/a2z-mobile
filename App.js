@@ -10,15 +10,9 @@ import ErrorBoundary from './src/screens/ErrorBoundary';
 
 const Stack = createNativeStackNavigator()
 
-const topOptions = {
-  headerStyle: { backgroundColor: Colors.primary },
-  headerTintColor: 'white',
-  headerTitleAlign: 'center'
-}
-
 const Navigation = () => {
   const { user } = useContext(AuthContext)
-  return user ? <AuthNavigation Stack={Stack} options={topOptions} /> : <NoAuthNavigation Stack={Stack} options={topOptions} />
+  return user ? <AuthNavigation Stack={Stack} /> : <NoAuthNavigation Stack={Stack} />
 }
 
 export default function App() {
