@@ -39,7 +39,6 @@ const styles = StyleSheet.create({
         opacity: .7
     },
     inline: {
-        flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between'
     }
