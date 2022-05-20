@@ -64,7 +64,7 @@ const LoginScreen = ({ route, navigation }) => {
                         onChangeText={setPassword}
                         disabled={loading}
                      />
-                    { loading ? <ActivityIndicator /> : <AZButton title="Login" outerStyle={outerBtnStyle} onPress={handleLoginPress} /> }
+                    { loading ? <ActivityIndicator size="large" color={Colors.primary} /> : <AZButton title="Login" outerStyle={outerBtnStyle} onPress={handleLoginPress} /> }
                     <AZDivider style={dividerStyle}>or</AZDivider>
                     <AZButton
                         title="Sign Up"
