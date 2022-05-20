@@ -4,6 +4,15 @@ import logout from './auth/logout'
 import createAccount from './account/createAccount'
 import getUserToken from './getUserToken'
 import reauthenticateWithEmailAndPassword from './auth/reauthentication'
-import { changeUserEmail } from './auth/updateCredentials'
+import { changeUserEmail, changeUserPassword } from './auth/updateCredentials'
 
-export { login, signup, logout, createAccount, getUserToken, changeUserEmail, reauthenticateWithEmailAndPassword }
+export { 
+    login, 
+    signup, 
+    logout, 
+    createAccount, 
+    getUserToken, 
+    changeUserEmail, 
+    changeUserPassword, 
+    reauthenticateWithEmailAndPassword 
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { AZIconButton } from '../components/ui';
-import { StreamScreen, Settings, EmailChange } from '../screens';
+import { StreamScreen, Settings, CredentialChange } from '../screens';
 import { useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
@@ -29,7 +29,7 @@ const BottomNav = () => (
     <Tab.Screen name="ProfileScreen" component={ProfileScreen} options={{
       title: 'Profile',
       tabBarIcon: ({ color, size }) => (
-        <Ionicons name="md-person-outline" size={24} color={color} />
+        <Ionicons name="md-person-sharp" size={24} color={color} />
       )
     }} />
   </Tab.Navigator>
@@ -41,7 +41,7 @@ const AuthNavigation = ({ Stack, options }) => {
       <Stack.Screen name="BottonNav" component={BottomNav} options={{headerShown: false}} />
       <Stack.Screen name="StreamScreen" component={StreamScreen} options={{ title: 'Tickets' }} />
       <Stack.Screen name="Settings" component={Settings} />
-      <Stack.Screen name="EmailChange" component={EmailChange} options={{ title: 'Change Email' }} />
+      <Stack.Screen name="CredentialChange" component={CredentialChange} options={{ title: 'Update Credentials' }} />
     </Stack.Navigator>
   )
 }

@@ -5,7 +5,7 @@ import { AZButton } from '../components/ui'
 import { logout } from '../firebase/api'
 import Colors from '../styles/Colors'
 
-const Settings = ({ navigation }) => {
+const Settings = ({ navigation: { navigate } }) => {
 
     const { width } = useWindowDimensions()
 
@@ -32,8 +32,8 @@ const Settings = ({ navigation }) => {
             <View style={[styles.container, containerStyle]}>
                 <View style={innerContainerStyle}>
                     <SettingTab text="My Profile" onPress={() => console.log("click")} />
-                    <SettingTab text="Change Email" onPress={() => navigation.navigate("EmailChange")} />
-                    <SettingTab text="Change Password" onPress={() => console.log("click")} />
+                    <SettingTab text="Change Email" onPress={() => navigate("CredentialChange", { type: "email" })} />
+                    <SettingTab text="Change Password" onPress={() => navigate("CredentialChange", { type: "password" })} />
                     <AZButton title="Logout" outerStyle={styles.buttonOuter} innerStyle={styles.buttonStyle} onPress={handleLogoutClick} />
                 </View>
             </View>
