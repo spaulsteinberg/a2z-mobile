@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useLayoutEffect } from 'react'
 import { View, Alert, StyleSheet, useWindowDimensions, ScrollView } from 'react-native'
 import SettingTab from '../components/settings/SettingTab'
 import { AZButton } from '../components/ui'
 import { logout } from '../firebase/api'
 import Colors from '../styles/Colors'
 
-const Settings = ({ navigation: { navigate } }) => {
+const Settings = ({ navigation }) => {
+
+    useLayoutEffect(() => {
+        navigation.setOptions({ headerRight: () => null })
+    }, [])
 
     const { width } = useWindowDimensions()
 
@@ -31,9 +35,9 @@ const Settings = ({ navigation: { navigate } }) => {
         <ScrollView>
             <View style={[styles.container, containerStyle]}>
                 <View style={innerContainerStyle}>
-                    <SettingTab text="My Profile" onPress={() => console.log("click")} />
-                    <SettingTab text="Change Email" onPress={() => navigate("CredentialChange", { type: "email" })} />
-                    <SettingTab text="Change Password" onPress={() => navigate("CredentialChange", { type: "password" })} />
+                    <SettingTab text="My Profile" onPress={() => navigation.navigate("ProfileScreen")} />
+                    <SettingTab text="Change Email" onPress={() => navigation.navigate("CredentialChange", { type: "email" })} />
+                    <SettingTab text="Change Password" onPress={() => navigation.navigate("CredentialChange", { type: "password" })} />
                     <AZButton title="Logout" outerStyle={styles.buttonOuter} innerStyle={styles.buttonStyle} onPress={handleLogoutClick} />
                 </View>
             </View>
