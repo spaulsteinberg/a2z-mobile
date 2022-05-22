@@ -27,10 +27,7 @@ const ProfileScreen = () => {
       lastName: Yup.string().trim().required("Last name cannot be left blank."),
       email: Yup.string().email("Please enter a valid email.").required("Email cannot be left blank."),
       phone: Yup.string().required("Phone number cannot be left blank.")
-        .test("phone", "Phone number is not valid.", value => {
-          console.log(value)
-          return /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(value)
-        }),
+        .test("phone", "Phone number is not valid.", value => /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(value)),
       zip: Yup.number().required("Zip code cannot be left blank.")
     }),
     onSubmit: values => {
@@ -47,7 +44,7 @@ const ProfileScreen = () => {
     <ScrollView contentContainerStyle={styles.contentContainer}>
       <View style={[styles.container, globalStyles.screenContainer]}>
         <ProfilePicture />
-        <ProfileForm formik={formik} />
+        <ProfileForm formik={formik} isEditable={editing} />
         <ProfileEditableButton 
           isEditing={editing}
           onPrimaryPress={editing ? formik.handleSubmit : () => setEditing(true)} 

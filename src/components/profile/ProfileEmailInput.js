@@ -1,7 +1,7 @@
 import React from 'react'
 import { AZInput, AZFeedback } from '../ui'
 
-const ProfileEmailInput = ({ formik, inputStyle }) => {
+const ProfileEmailInput = ({ formik, isEditable }) => {
     return (
         <>
             <AZInput
@@ -12,6 +12,7 @@ const ProfileEmailInput = ({ formik, inputStyle }) => {
                 invalid={formik.errors.email && formik.touched.email}
                 keyboardType="email-address"
                 textStyle={{backgroundColor: "#fff"}}
+                disabled={!isEditable}
             />
             {formik.errors.email && formik.touched.email && <AZFeedback message={formik.errors.email} severity="error" />}
 

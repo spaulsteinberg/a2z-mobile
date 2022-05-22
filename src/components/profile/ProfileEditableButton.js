@@ -23,7 +23,7 @@ const ProfileEditableButton = ({ isEditing, onPrimaryPress, onSecondaryPress }) 
 
 const styles = StyleSheet.create({
   inner: {
-    backgroundColor: Colors.warning
+    backgroundColor: Colors.secondary600
   },
   innerSecondary: {
     backgroundColor: Colors.neutral

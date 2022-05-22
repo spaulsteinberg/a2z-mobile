@@ -2,7 +2,7 @@ import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import { AZInput, AZFeedback } from '../ui'
 
-const ProfilePhoneZipInput = ({ formik }) => {
+const ProfilePhoneZipInput = ({ formik, isEditable }) => {
     return (
         <View style={styles.phoneZipContainer}>
             <View style={styles.phoneContainer}>
@@ -14,6 +14,7 @@ const ProfilePhoneZipInput = ({ formik }) => {
                     invalid={formik.errors.phone && formik.touched.phone}
                     keyboardType="phone-pad"
                     textStyle={styles.inputInner}
+                    disabled={!isEditable}
                 />
                 {formik.errors.phone && formik.touched.phone && <AZFeedback message={formik.errors.phone} severity="error" />}
             </View>
@@ -26,6 +27,7 @@ const ProfilePhoneZipInput = ({ formik }) => {
                     invalid={formik.errors.zip && formik.touched.zip}
                     keyboardType="number-pad"
                     textStyle={styles.inputInner}
+                    disabled={!isEditable}
                 />
                 {formik.errors.zip && formik.touched.zip && <AZFeedback message={formik.errors.zip} severity="error" />}
             </View>
