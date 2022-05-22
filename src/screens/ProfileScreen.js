@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, StyleSheet, ScrollView } from 'react-native'
 import globalStyles from '../styles/global';
 import Colors from '../styles/Colors';
@@ -7,14 +7,21 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import ProfileForm from '../components/profile/ProfileForm';
 import ProfileEditableButton from '../components/profile/ProfileEditableButton';
+import { useIsFocused } from '@react-navigation/native';
 
 const ProfileScreen = () => {
 
   const [editing, setEditing] = useState(false)
-  const formikRef = useRef()
+  const focused = useIsFocused()
+  
+  useEffect(() => {
+    if (!focused) {
+      formik.resetForm()
+      setEditing(false)
+    }
+  }, [focused])
 
   const formik = useFormik({
-    innerRef: formikRef,
     initialValues: {
       firstName: '',
       lastName: '',
