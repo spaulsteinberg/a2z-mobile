@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from 'react'
-import { View, Alert, StyleSheet, useWindowDimensions, ScrollView } from 'react-native'
+import { View, Alert, StyleSheet, useWindowDimensions, ScrollView, Platform } from 'react-native'
 import SettingTab from '../components/settings/SettingTab'
 import { AZButton } from '../components/ui'
 import { logout } from '../firebase/api'
@@ -22,13 +22,17 @@ const Settings = ({ navigation }) => {
     }
 
     const handleLogoutClick = () => {
-        Alert.alert('Logout', 'Are you sure you want to logout?', [
-            { text: 'Back', style: 'cancel' },
-            {
-                text: 'Logout', style: 'destructive',
-                onPress: () => logout().then(_ => console.log("logged out")).catch(err => console.log(err))
-            }
-        ])
+        if (Platform.OS === 'web') {
+            logout().then(_ => console.log("logged out")).catch(err => console.log(err))
+        } else {
+            Alert.alert('Logout', 'Are you sure you want to logout?', [
+                { text: 'Back', style: 'cancel' },
+                {
+                    text: 'Logout', style: 'destructive',
+                    onPress: () => logout().then(_ => console.log("logged out")).catch(err => console.log(err))
+                }
+            ])
+        }
     }
 
     return (

@@ -4,6 +4,7 @@ import { ActivityIndicator, Alert } from 'react-native'
 import { login } from '../firebase/api'
 import Colors from '../styles/Colors'
 import { AZButton, AZCard, AZDivider, AZInput, AZSingleView } from '../components/ui'
+import { getIdToken } from 'firebase/auth'
 
 const dividerStyle = { paddingVertical: 10 }
 const outerBtnStyle = { marginVertical: 8 }
@@ -34,10 +35,15 @@ const LoginScreen = ({ route, navigation }) => {
         login(email, password)
         .then(_ => {
           //  setLoading(false)
+          console.log(_.user)
+         // const token = await getIdToken()
         })
-        .catch(err => Alert.alert('Authentication failed.', 'Please check your username and password and try again.', [
-            { text: 'OK', onPress: () => setLoading(false) }
-        ]))
+        .catch(err => {
+            console.log(err)
+            Alert.alert('Authentication failed.', 'Please check your username and password and try again.', [
+                { text: 'OK', onPress: () => setLoading(false) }
+            ])
+        })
     }
 
     const handleRedirectToSignupPress = () => navigation.navigate("Signup")

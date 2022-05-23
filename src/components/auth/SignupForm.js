@@ -52,7 +52,8 @@ const SignupForm = ({ }) => {
                 const token = await getUserToken()
                 console.log(token)
                 const accountRes = await createAccount(firstName, lastName, email, token);
-                console.log("Account creation success", accountRes)
+                console.log("ACCOUNT RES")
+                return
             } catch (err) {
                 return setSubmitState({ loading: false, error: 'Something went wrong. Please try again.' })
             }

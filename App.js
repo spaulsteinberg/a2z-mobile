@@ -7,6 +7,8 @@ import AuthContextProvider, { AuthContext } from './src/store/context/AuthContex
 import Colors from './src/styles/Colors';
 import { AuthNavigation, NoAuthNavigation } from './src/routes';
 import ErrorBoundary from './src/screens/ErrorBoundary';
+import store from './src/store/redux/store';
+import { Provider } from 'react-redux'
 
 const Stack = createNativeStackNavigator()
 
@@ -22,9 +24,11 @@ export default function App() {
       <SafeAreaView style={styles.container}>
         <ErrorBoundary>
           <AuthContextProvider>
-            <NavigationContainer>
-              <Navigation />
-            </NavigationContainer>
+            <Provider store={store}>
+              <NavigationContainer>
+                <Navigation />
+              </NavigationContainer>
+            </Provider>
           </AuthContextProvider>
         </ErrorBoundary>
       </SafeAreaView>

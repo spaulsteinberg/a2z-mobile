@@ -5,13 +5,6 @@ import { AZCard, AZSingleView } from '../components/ui'
 import SignupForm from '../components/auth/SignupForm'
 
 const SignupScreen = ({ route, navigation }) => {
-
-  const fnameRef = useRef();
-
-  useEffect(() => {
-    fnameRef?.current?.focus();
-  }, [])
-
   return (
     <ScrollView>
       <AZSingleView>
