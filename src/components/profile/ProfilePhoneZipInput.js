@@ -8,28 +8,28 @@ const ProfilePhoneZipInput = ({ formik, isEditable }) => {
             <View style={styles.phoneContainer}>
                 <AZInput
                     label="Phone"
-                    value={formik.values.phone}
-                    onBlur={formik.handleBlur('phone')}
-                    onChangeText={formik.handleChange('phone')}
-                    invalid={formik.errors.phone && formik.touched.phone}
+                    value={formik.values.phoneNumber}
+                    onBlur={formik.handleBlur('phoneNumber')}
+                    onChangeText={formik.handleChange('phoneNumber')}
+                    invalid={formik.errors.phoneNumber && formik.touched.phoneNumber}
                     keyboardType="phone-pad"
                     textStyle={styles.inputInner}
                     disabled={!isEditable}
                 />
-                {formik.errors.phone && formik.touched.phone && <AZFeedback message={formik.errors.phone} severity="error" />}
+                {formik.errors.phoneNumber && formik.touched.phoneNumber && <AZFeedback message={formik.errors.phoneNumber} severity="error" />}
             </View>
             <View style={styles.zipContainer}>
                 <AZInput
                     label="Zip"
-                    value={formik.values.zip}
-                    onBlur={formik.handleBlur('zip')}
-                    onChangeText={formik.handleChange('zip')}
-                    invalid={formik.errors.zip && formik.touched.zip}
+                    value={formik.values.zipCode}
+                    onBlur={formik.handleBlur('zipCode')}
+                    onChangeText={formik.handleChange('zipCode')}
+                    invalid={formik.errors.zipCode && formik.touched.zipCode}
                     keyboardType="number-pad"
                     textStyle={styles.inputInner}
                     disabled={!isEditable}
                 />
-                {formik.errors.zip && formik.touched.zip && <AZFeedback message={formik.errors.zip} severity="error" />}
+                {formik.errors.zipCode && formik.touched.zipCode && <AZFeedback message={formik.errors.zipCode} severity="error" />}
             </View>
         </View>
     )

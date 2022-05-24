@@ -1,9 +1,9 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, ActivityIndicator } from 'react-native'
 import Colors from '../../styles/Colors'
 import { AZButton } from '../ui'
 
-const ProfileEditableButton = ({ isEditing, onPrimaryPress, onSecondaryPress }) => {
+const ProfileEditableButton = ({ isEditing, isLoading, onPrimaryPress, onSecondaryPress }) => {
   let button = <AZButton title="Edit" onPress={onPrimaryPress} rippleColor="#fff" innerStyle={styles.inner} />
   if (isEditing) {
     button = (
@@ -16,7 +16,7 @@ const ProfileEditableButton = ({ isEditing, onPrimaryPress, onSecondaryPress }) 
 
   return (
     <View style={styles.buttonContainer}>
-      { button }
+      { isLoading ? <ActivityIndicator size="large" color={Colors.primary} /> : button }
     </View>
   )
 }

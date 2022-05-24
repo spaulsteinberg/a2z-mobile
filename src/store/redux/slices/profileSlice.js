@@ -9,7 +9,9 @@ const profileSlice = createSlice({
         data: null,
         error: null
     },
-    reducers: {},
+    reducers: {
+        updateProfile: (state, { payload }) => { state.data = payload }
+    },
     extraReducers: {
         [getProfile.pending]: (state) => {
             state.loading = true
@@ -22,9 +24,10 @@ const profileSlice = createSlice({
         [getProfile.rejected]: (state, { payload }) => {
             state.loading = false;
             state.data = null;
-            state.error = payload;
+            state.error = "Something went wrong";
         }
     }
 })
 
+export const { updateProfile } = profileSlice.actions
 export default profileSlice.reducer

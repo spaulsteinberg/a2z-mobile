@@ -51,7 +51,7 @@ const SignupForm = ({ }) => {
             try {
                 const token = await getUserToken()
                 console.log(token)
-                const accountRes = await createAccount(firstName, lastName, email, token);
+                const accountRes = await createAccount(firstName, lastName, email, '', '', token);
                 console.log("ACCOUNT RES")
                 return
             } catch (err) {
