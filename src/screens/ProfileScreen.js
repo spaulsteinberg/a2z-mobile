@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { View, StyleSheet, ScrollView, ActivityIndicator, Text } from 'react-native'
+import { View, StyleSheet, ScrollView, ActivityIndicator } from 'react-native'
 import globalStyles from '../styles/global';
 import Colors from '../styles/Colors';
-import ProfilePicture from '../components/profile/ProfilePicture';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import ProfileForm from '../components/profile/ProfileForm';
-import ProfileEditableButton from '../components/profile/ProfileEditableButton';
 import { useIsFocused } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserToken, updateAccount } from '../firebase/api';
 import getProfile from '../store/redux/effects/profileEffects';
 import { updateProfile } from '../store/redux/slices/profileSlice';
 import ProfileSubmitFeedback from '../components/profile/ProfileSubmitFeedback';
-import { AZButton } from '../components/ui';
 import ProfileContent from '../components/profile/ProfileContent';
 import ProfileError from '../components/profile/ProfileError';
 
@@ -25,7 +21,7 @@ const ProfileScreen = () => {
   const loading = useSelector(state => state.profile.loading)
   const error = useSelector(state => state.profile.error)
   const data = useSelector(state => state.profile.data)
-  const [submitState, setSubmitState] = useState({loading: false, success: null, error: null })
+  const [submitState, setSubmitState] = useState({ loading: false, success: null, error: null })
 
   useEffect(() => {
     if (!focused) {
@@ -63,16 +59,15 @@ const ProfileScreen = () => {
     }),
     onSubmit: async (values) => {
       console.log(values)
-      setSubmitState({ loading: true, success: null, error: null  })
+      setSubmitState({ loading: true, success: null, error: null })
       try {
         const token = await getUserToken()
         const res = await updateAccount(values, token)
-        console.log(res, "SAVED")
         dispatch(updateProfile(values))
         return setSubmitState({ loading: false, success: "Profile saved!", error: null })
       } catch (err) {
         console.log(err)
-        return setSubmitState({ loading: false, success: null, error: "Could not save profile."})
+        return setSubmitState({ loading: false, success: null, error: "Could not save profile." })
       }
     }
   })
