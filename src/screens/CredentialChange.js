@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useState } from 'react'
 import CredentialFeedback from '../components/auth/CredentialFeedback'
 import EmailChangeForm from '../components/auth/EmailChangeForm'
 import PasswordChangeForm from '../components/auth/PasswordChangeForm'
-import { AZCard, AZSingleView } from '../components/ui'
+import { AZCard, AZIconButton, AZSingleView } from '../components/ui'
 import { changeUserEmail, changeUserPassword, reauthenticateWithEmailAndPassword } from '../firebase/api'
 
 const CredentialChange = ({ route: { params: { type } }, navigation }) => {
@@ -10,6 +10,7 @@ const CredentialChange = ({ route: { params: { type } }, navigation }) => {
     useLayoutEffect(() => {
         navigation.setOptions({
             title: type === "email" ? "Change Email" : "Change Password",
+            headerRight: () => <AZIconButton size={24} color="white" icon="settings-outline" outerStyle={{marginRight: 0}} />
         })
     }, [navigation, type])
 
