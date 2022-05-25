@@ -88,7 +88,7 @@ const ProfileScreen = () => {
   let content, feedback = null;
   if (loading) content = <ActivityIndicator style={styles.activity} color={Colors.secondary} size="large" />
   else if (error) content = <ProfileError handleReloadProfile={async () => dispatch(getProfile(await getUserToken()))} />
-  else if (data) content = <ProfileContent formik={formik} editing={editing} loading={submitState.loading} handleEditPress={handleEditPress} handleSecondaryPress={handleSecondaryPress} />
+  else if (data) content = <ProfileContent formik={formik} photo={data?.photoUrl} editing={editing} loading={submitState.loading} handleEditPress={handleEditPress} handleSecondaryPress={handleSecondaryPress} />
 
   if (submitState.success) feedback = <ProfileSubmitFeedback message={submitState.success} severity="success" />
   else if (submitState.error) feedback = <ProfileSubmitFeedback message={submitState.error} severity="error" />

@@ -10,7 +10,8 @@ const profileSlice = createSlice({
         error: null
     },
     reducers: {
-        updateProfile: (state, { payload }) => { state.data = payload }
+        updateProfile: (state, { payload }) => { state.data = payload },
+        setProfilePhoto: (state, { payload }) => { state.data.photoUrl = payload }
     },
     extraReducers: {
         [getProfile.pending]: (state) => {
@@ -29,5 +30,5 @@ const profileSlice = createSlice({
     }
 })
 
-export const { updateProfile } = profileSlice.actions
+export const { updateProfile, setProfilePhoto } = profileSlice.actions
 export default profileSlice.reducer
