@@ -7,7 +7,7 @@ const getProfile = createAsyncThunk(
         return await getAccount(token)
         .then(res => Promise.resolve(res.data.data))
         .catch(err => {
-            console.log(err)
+            console.log(err, err.response)
             return Promise.reject("Something went wrong")
         })
     }

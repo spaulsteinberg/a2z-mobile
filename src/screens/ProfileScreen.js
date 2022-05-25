@@ -13,6 +13,7 @@ import { getUserToken, updateAccount } from '../firebase/api';
 import getProfile from '../store/redux/effects/profileEffects';
 import { updateProfile } from '../store/redux/slices/profileSlice';
 import ProfileSubmitFeedback from '../components/profile/ProfileSubmitFeedback';
+import { AZButton } from '../components/ui';
 
 const ProfileScreen = () => {
 
@@ -83,7 +84,13 @@ const ProfileScreen = () => {
   let content, feedback = null;
   if (loading) content = <ActivityIndicator style={styles.activity} color={Colors.secondary} size="large" />
   else if (error) {
-    content = <Text style={[styles.error, styles.activity]}>An error occurred loading your profile. Please reload the page or try again later.</Text>
+    content = (
+      <View style={styles.errorWrapper}>
+        <Text style={[styles.error, styles.activity]}>An error occurred loading your profile. Please reload the page or try again later.</Text>
+        <AZButton title="Try Again" innerStyle={styles.errorBtn} onPress={async () => dispatch(getProfile(await getUserToken()))} />
+      </View>
+    )
+    //
   }
   else if (data) {
     content = (
@@ -118,12 +125,17 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary900
   },
   activity: {
-    marginVertical: 100
+    marginTop: 100,
+    marginBottom: 25,
   },
   error: {
     textAlign: 'center',
     color: Colors.error
-  }
+  },
+  errorBtn: {
+    backgroundColor: Colors.secondary
+  },
+  errorWrapper: {alignItems: 'center'}
 })
 
 export default ProfileScreen
