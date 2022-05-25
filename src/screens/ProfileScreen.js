@@ -14,6 +14,8 @@ import getProfile from '../store/redux/effects/profileEffects';
 import { updateProfile } from '../store/redux/slices/profileSlice';
 import ProfileSubmitFeedback from '../components/profile/ProfileSubmitFeedback';
 import { AZButton } from '../components/ui';
+import ProfileContent from '../components/profile/ProfileContent';
+import ProfileError from '../components/profile/ProfileError';
 
 const ProfileScreen = () => {
 
@@ -81,30 +83,12 @@ const ProfileScreen = () => {
     formik.resetForm()
   }
 
+  const handleEditPress = () => setEditing(true)
+
   let content, feedback = null;
   if (loading) content = <ActivityIndicator style={styles.activity} color={Colors.secondary} size="large" />
-  else if (error) {
-    content = (
-      <View style={styles.errorWrapper}>
-        <Text style={[styles.error, styles.activity]}>An error occurred loading your profile. Please reload the page or try again later.</Text>
-        <AZButton title="Try Again" innerStyle={styles.errorBtn} onPress={async () => dispatch(getProfile(await getUserToken()))} />
-      </View>
-    )
-    //
-  }
-  else if (data) {
-    content = (
-      <>
-        <ProfilePicture />
-        <ProfileForm formik={formik} isEditable={editing} />
-        <ProfileEditableButton
-          isEditing={editing}
-          isLoading={submitState.loading}
-          onPrimaryPress={editing ? formik.handleSubmit : () => setEditing(true)}
-          onSecondaryPress={handleSecondaryPress} />
-      </>
-    )
-  }
+  else if (error) content = <ProfileError handleReloadProfile={async () => dispatch(getProfile(await getUserToken()))} />
+  else if (data) content = <ProfileContent formik={formik} editing={editing} loading={submitState.loading} handleEditPress={handleEditPress} handleSecondaryPress={handleSecondaryPress} />
 
   if (submitState.success) feedback = <ProfileSubmitFeedback message={submitState.success} severity="success" />
   else if (submitState.error) feedback = <ProfileSubmitFeedback message={submitState.error} severity="error" />
@@ -128,14 +112,6 @@ const styles = StyleSheet.create({
     marginTop: 100,
     marginBottom: 25,
   },
-  error: {
-    textAlign: 'center',
-    color: Colors.error
-  },
-  errorBtn: {
-    backgroundColor: Colors.secondary
-  },
-  errorWrapper: {alignItems: 'center'}
 })
 
 export default ProfileScreen
