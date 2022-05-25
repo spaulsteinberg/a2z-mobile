@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, StyleSheet, ScrollView, ActivityIndicator } from 'react-native'
+import { View, StyleSheet, ScrollView, ActivityIndicator, Alert } from 'react-native'
 import globalStyles from '../styles/global';
 import Colors from '../styles/Colors';
 import { useFormik } from 'formik';
@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getUserToken, updateAccount } from '../firebase/api';
 import getProfile from '../store/redux/effects/profileEffects';
 import { updateProfile } from '../store/redux/slices/profileSlice';
-import ProfileSubmitFeedback from '../components/profile/ProfileSubmitFeedback';
 import ProfileContent from '../components/profile/ProfileContent';
 import ProfileError from '../components/profile/ProfileError';
 
@@ -21,12 +20,12 @@ const ProfileScreen = () => {
   const loading = useSelector(state => state.profile.loading)
   const error = useSelector(state => state.profile.error)
   const data = useSelector(state => state.profile.data)
-  const [submitState, setSubmitState] = useState({ loading: false, success: null, error: null })
+  const [submitting, setSubmitting] = useState(false)
 
   useEffect(() => {
     if (!focused) {
       formik.resetForm()
-      setSubmitState({ loading: false, success: null, error: null })
+      setSubmitting(false)
       setEditing(false)
     }
   }, [focused])
@@ -59,40 +58,37 @@ const ProfileScreen = () => {
     }),
     onSubmit: async (values) => {
       console.log(values)
-      setSubmitState({ loading: true, success: null, error: null })
+      setSubmitting(true)
       try {
-        const token = await getUserToken()
-        const res = await updateAccount(values, token)
+        await updateAccount(values, await getUserToken())
         dispatch(updateProfile(values))
-        return setSubmitState({ loading: false, success: "Profile saved!", error: null })
+        return Alert.alert("Profile saved!", "Your profile has been updated.", [{ text: "OK", onPress: () => setEditing(false) } ])
       } catch (err) {
         console.log(err)
-        return setSubmitState({ loading: false, success: null, error: "Could not save profile." })
+        return Alert.alert("An error occurred.", "An error occurred updating your profile. Please try again.")
+      } finally {
+        setSubmitting(false)
       }
     }
   })
 
   const handleSecondaryPress = () => {
     setEditing(false)
-    setSubmitState({ loading: false, success: null, error: null })
+    setSubmitting(false)
     formik.resetForm()
   }
 
   const handleEditPress = () => setEditing(true)
 
-  let content, feedback = null;
+  let content;
   if (loading) content = <ActivityIndicator style={styles.activity} color={Colors.secondary} size="large" />
   else if (error) content = <ProfileError handleReloadProfile={async () => dispatch(getProfile(await getUserToken()))} />
-  else if (data) content = <ProfileContent formik={formik} photo={data?.photoUrl} editing={editing} loading={submitState.loading} handleEditPress={handleEditPress} handleSecondaryPress={handleSecondaryPress} />
-
-  if (submitState.success) feedback = <ProfileSubmitFeedback message={submitState.success} severity="success" />
-  else if (submitState.error) feedback = <ProfileSubmitFeedback message={submitState.error} severity="error" />
+  else if (data) content = <ProfileContent formik={formik} photo={data?.photoUrl} editing={editing} loading={submitting} handleEditPress={handleEditPress} handleSecondaryPress={handleSecondaryPress} />
 
   return (
     <ScrollView contentContainerStyle={styles.contentContainer}>
       <View style={[styles.container, globalStyles.screenContainer]}>
         {content}
-        {feedback}
       </View>
     </ScrollView>
   )
