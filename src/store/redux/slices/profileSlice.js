@@ -1,17 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 import getProfile from "../effects/profileEffects";
 
+const initialState = {
+    loading: false,
+    data: null,
+    error: null
+}
 
 const profileSlice = createSlice({
     name: 'profile',
-    initialState: {
-        loading: false,
-        data: null,
-        error: null
-    },
+    initialState: initialState,
     reducers: {
         updateProfile: (state, { payload }) => { state.data = payload },
-        setProfilePhoto: (state, { payload }) => { state.data.photoUrl = payload }
+        setProfilePhoto: (state, { payload }) => { state.data.photoUrl = payload },
+        resetProfile: () => initialState
     },
     extraReducers: {
         [getProfile.pending]: (state) => {
@@ -30,5 +32,5 @@ const profileSlice = createSlice({
     }
 })
 
-export const { updateProfile, setProfilePhoto } = profileSlice.actions
+export const { updateProfile, setProfilePhoto, resetProfile } = profileSlice.actions
 export default profileSlice.reducer

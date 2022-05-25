@@ -1,8 +1,10 @@
 import React, { useLayoutEffect } from 'react'
 import { View, Alert, StyleSheet, useWindowDimensions, ScrollView, Platform } from 'react-native'
+import { useDispatch } from 'react-redux'
 import SettingTab from '../components/settings/SettingTab'
 import { AZButton } from '../components/ui'
 import { logout } from '../firebase/api'
+import { resetProfile } from '../store/redux/slices/profileSlice'
 import Colors from '../styles/Colors'
 
 const Settings = ({ navigation }) => {
@@ -10,6 +12,8 @@ const Settings = ({ navigation }) => {
     useLayoutEffect(() => {
         navigation.setOptions({ headerRight: () => null })
     }, [])
+
+    const dispatch = useDispatch()
 
     const { width } = useWindowDimensions()
 
@@ -21,15 +25,26 @@ const Settings = ({ navigation }) => {
         height: `${width > 500 ? 60 : 100}%`
     }
 
+    const resetNonAuthStates = () => {
+        console.log("here")
+        dispatch(resetProfile())
+    }
+
+    // add any cleanup here
+    const cleanupAfterLogout = () => {
+        resetNonAuthStates()
+        console.log("logged out")
+    }
+
     const handleLogoutClick = () => {
         if (Platform.OS === 'web') {
-            logout().then(_ => console.log("logged out")).catch(err => console.log(err))
+            logout().then(_ => cleanupAfterLogout()).catch(err => console.log(err))
         } else {
             Alert.alert('Logout', 'Are you sure you want to logout?', [
                 { text: 'Back', style: 'cancel' },
                 {
                     text: 'Logout', style: 'destructive',
-                    onPress: () => logout().then(_ => console.log("logged out")).catch(err => console.log(err))
+                    onPress: () => logout().then(_ => cleanupAfterLogout()).catch(err => console.log(err))
                 }
             ])
         }
