@@ -11,7 +11,7 @@ const profileSlice = createSlice({
     name: 'profile',
     initialState: initialState,
     reducers: {
-        updateProfile: (state, { payload }) => { state.data = payload },
+        updateProfile: (state, { payload }) => { state.data = { ...state.data, payload } },
         setProfilePhoto: (state, { payload }) => { state.data.photoUrl = payload },
         resetProfile: () => initialState
     },
