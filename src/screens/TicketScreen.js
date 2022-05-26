@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 
-const StreamScreen = () => {
+const TicketScreen = () => {
   return (
     <View>
         <Text>Hello world</Text>
@@ -9,4 +9,4 @@ const StreamScreen = () => {
   )
 }
 
-export default StreamScreen
+export default TicketScreen

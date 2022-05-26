@@ -1,6 +1,6 @@
 import React from 'react';
 import { AZIconButton } from '../components/ui';
-import { StreamScreen, Settings, CredentialChange, ProfileScreen } from '../screens';
+import { TicketScreen, Settings, CredentialChange, ProfileScreen } from '../screens';
 import { useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
@@ -19,7 +19,7 @@ const BottomNav = () => (
     tabBarActiveTintColor: Colors.primary,
     headerRight: () => <RightHeaderSettings />
   }}>
-    <Tab.Screen name="TicketScreen" component={StreamScreen} options={{
+    <Tab.Screen name="TicketScreen" component={TicketScreen} options={{
       title: 'Tickets',
       tabBarIcon: ({ color, size }) => (
         <FontAwesome name="ticket" size={24} color={color} />
@@ -38,7 +38,6 @@ const AuthNavigation = ({ Stack, options }) => {
   return (
     <Stack.Navigator screenOptions={{ ...topOptions, headerRight: () => <RightHeaderSettings /> }}>
       <Stack.Screen name="BottonNav" component={BottomNav} options={{headerShown: false}} />
-      <Stack.Screen name="StreamScreen" component={StreamScreen} options={{ title: 'Tickets' }} />
       <Stack.Screen name="Settings" component={Settings} />
       <Stack.Screen name="CredentialChange" component={CredentialChange} options={{ title: 'Update Credentials' }} />
     </Stack.Navigator>
