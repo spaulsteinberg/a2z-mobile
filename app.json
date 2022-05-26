@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "a2z-mobile",
+    "name": "a2z Mobile",
     "slug": "a2z-mobile",
     "version": "1.0.0",
     "orientation": "default",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon_3.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/splash_3.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ff1a75"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
