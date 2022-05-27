@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
-import { View, Text, Alert, ScrollView, StyleSheet, ActivityIndicator, Button } from 'react-native'
+import { View, Alert, ScrollView, StyleSheet, ActivityIndicator, Button } from 'react-native'
 import { requestForegroundPermissionsAsync, getCurrentPositionAsync } from 'expo-location'
-import { AZButton } from '../components/ui'
 import globalStyles from '../styles/global'
 import Colors from '../styles/Colors'
 import { useUserLocation } from '../store/context/LocationContext'
+import TicketContent from '../components/tickets/TicketContent'
 
 const TicketScreen = () => {
 
   const [locationLoading, setLocationLoading] = useState(false)
-  const { loading, userLocation, setUserLocationStorage } = useUserLocation()
+  const { loading, userLocation, setUserLocationStorage, clearUserLocationStorage } = useUserLocation()
 
   const requestLocationPermissions = async () => {
     let { status } = await requestForegroundPermissionsAsync()
@@ -37,16 +37,7 @@ const TicketScreen = () => {
   let content;
   if (locationLoading || loading) content = <ActivityIndicator size="large" color={Colors.primary} />
   else if (!locationLoading && !loading) {
-    content = <>
-    {
-          userLocation ? <Text>You have a location</Text>
-          : <AZButton 
-          title="Turn on Location to see Tickets" 
-          outerStyle={styles.turnOnLocationButtonOuter} 
-          onPress={askForLocationHandler}
-          />
-        }
-    </>
+    content = <TicketContent userLocation={userLocation} askForLocationHandler={askForLocationHandler} />
   }
 
   return (
@@ -65,6 +56,9 @@ const styles = StyleSheet.create({
   turnOnLocationButtonOuter: {
     alignItems: 'center',
     marginVertical: 24
+  },
+  outerRefresh: {
+    backgroundColor: Colors.secondary600
   }
 })
 

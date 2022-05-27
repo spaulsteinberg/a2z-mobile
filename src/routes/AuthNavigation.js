@@ -34,7 +34,7 @@ const BottomNav = () => (
   </Tab.Navigator>
 )
 
-const AuthNavigation = ({ Stack, options }) => {
+const AuthNavigation = ({ Stack }) => {
   return (
     <Stack.Navigator screenOptions={{ ...topOptions, headerRight: () => <RightHeaderSettings /> }}>
       <Stack.Screen name="BottonNav" component={BottomNav} options={{headerShown: false}} />
@@ -46,7 +46,7 @@ const AuthNavigation = ({ Stack, options }) => {
 
 const RightHeaderSettings = () => {
   const navigation = useNavigation()
-  return <AZIconButton size={24} color="white" icon="settings-outline" onPress={() => navigation.navigate("Settings")} />
+  return <AZIconButton size={24} color="white" icon="settings-outline" outerStyle={{marginRight: 15}} onPress={() => navigation.navigate("Settings")} />
 }
 
 export default AuthNavigation

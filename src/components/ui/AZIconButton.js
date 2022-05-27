@@ -1,14 +1,13 @@
 import React from 'react'
 import { Ionicons } from '@expo/vector-icons';
 import { View, Pressable, StyleSheet } from 'react-native'
-import Colors from '../../styles/Colors'
 
-const AZIconButton = ({ icon, size, color, onPress, outerStyle }) => {
+const AZIconButton = ({ icon, size, color, onPress, outerStyle, innerStyle }) => {
   return (
     <View style={[styles.outerContainer, outerStyle]}>
         <Pressable 
           android_ripple={{color: "#fff" }} 
-          style={({pressed}) => [styles.innerContainer, pressed && styles.pressed]}
+          style={({pressed}) => [styles.innerContainer, innerStyle, pressed && styles.pressed]}
           onPress={onPress}
           >
           <Ionicons name={icon} size={size} color={color} />
@@ -18,11 +17,9 @@ const AZIconButton = ({ icon, size, color, onPress, outerStyle }) => {
 }
 
 const styles = StyleSheet.create({
-    outerContainer: {
-      marginRight: 15
-    },
+    outerContainer: {},
     innerContainer: {
-      paddingVertical: 6
+      paddingVertical: 6,
     },
     pressed: {
       opacity: 0.7
