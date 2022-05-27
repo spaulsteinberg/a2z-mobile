@@ -10,7 +10,7 @@ const CredentialChange = ({ route: { params: { type } }, navigation }) => {
     useLayoutEffect(() => {
         navigation.setOptions({
             title: type === "email" ? "Change Email" : "Change Password",
-            headerRight: () => <AZIconButton size={24} color="white" icon="settings-outline" outerStyle={{marginRight: 0}} />
+            headerRight: () => <AZIconButton size={24} color="white" icon="settings-outline" outerStyle={{marginRight: 0}} onPress={() => navigation.navigate("Settings")} />
         })
     }, [navigation, type])
 
