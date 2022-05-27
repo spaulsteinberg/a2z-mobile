@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
-import { View, Text, Alert, ScrollView, StyleSheet, ActivityIndicator } from 'react-native'
+import { View, Text, Alert, ScrollView, StyleSheet, ActivityIndicator, Button } from 'react-native'
 import { requestForegroundPermissionsAsync, getCurrentPositionAsync } from 'expo-location'
 import { AZButton } from '../components/ui'
 import globalStyles from '../styles/global'
 import Colors from '../styles/Colors'
+import { useUserLocation } from '../store/context/LocationContext'
 
 const TicketScreen = () => {
 
-  const [location, setLocation] = useState(null)
   const [locationLoading, setLocationLoading] = useState(false)
+  const { loading, userLocation, setUserLocationStorage } = useUserLocation()
 
   const requestLocationPermissions = async () => {
     let { status } = await requestForegroundPermissionsAsync()
@@ -21,17 +22,24 @@ const TicketScreen = () => {
     if (!userHasGrantedPermissions) return Alert.alert("Permission denied.", "To use this part of the application, you will need to grant location permission.")
 
     let location = await getCurrentPositionAsync()
-    console.log(location)
-    setLocation(location)
     setLocationLoading(false)
+    await syncUserLocationWithContext(location)
+  }
+
+  const syncUserLocationWithContext = async (location) => {
+    try {
+      await setUserLocationStorage(location)
+    } catch (err) {
+      console.log("SYNC ERR", err)
+    }
   }
 
   let content;
-  if (locationLoading) content = <ActivityIndicator size="large" color={Colors.primary} />
-  else {
+  if (locationLoading || loading) content = <ActivityIndicator size="large" color={Colors.primary} />
+  else if (!locationLoading && !loading) {
     content = <>
     {
-          location ? <Text>You have a location</Text>
+          userLocation ? <Text>You have a location</Text>
           : <AZButton 
           title="Turn on Location to see Tickets" 
           outerStyle={styles.turnOnLocationButtonOuter} 

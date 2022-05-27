@@ -9,6 +9,7 @@ import { AuthNavigation, NoAuthNavigation } from './src/routes';
 import ErrorBoundary from './src/screens/ErrorBoundary';
 import store from './src/store/redux/store';
 import { Provider } from 'react-redux'
+import { LocationProvider } from './src/store/context/LocationContext';
 
 const Stack = createNativeStackNavigator()
 
@@ -25,9 +26,11 @@ export default function App() {
         <ErrorBoundary>
           <AuthContextProvider>
             <Provider store={store}>
-              <NavigationContainer>
-                <Navigation />
-              </NavigationContainer>
+              <LocationProvider>
+                <NavigationContainer>
+                  <Navigation />
+                </NavigationContainer>
+              </LocationProvider>
             </Provider>
           </AuthContextProvider>
         </ErrorBoundary>
