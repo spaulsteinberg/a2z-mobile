@@ -1,12 +1,12 @@
 import React from 'react'
-import RefreshLocationFeed from './RefreshLocationFeed'
+import TicketFeed from './TicketFeed'
 import TurnOnLocationButton from './TurnOnLocationButton'
 
 const TicketContent = ({ userLocation, askForLocationHandler }) => {
     return (
         <>
             {
-                userLocation ? <RefreshLocationFeed onPress={askForLocationHandler} /> : <TurnOnLocationButton onPress={askForLocationHandler} />
+                userLocation ? <TicketFeed askForLocationHandler={askForLocationHandler} /> : <TurnOnLocationButton onPress={askForLocationHandler} />
             }
         </>
     )

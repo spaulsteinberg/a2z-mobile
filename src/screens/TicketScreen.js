@@ -9,7 +9,7 @@ import TicketContent from '../components/tickets/TicketContent'
 const TicketScreen = () => {
 
   const [locationLoading, setLocationLoading] = useState(false)
-  const { loading, userLocation, setUserLocationStorage, clearUserLocationStorage } = useUserLocation()
+  const { loading, userLocation, setUserLocationStorage } = useUserLocation()
 
   const requestLocationPermissions = async () => {
     let { status } = await requestForegroundPermissionsAsync()
