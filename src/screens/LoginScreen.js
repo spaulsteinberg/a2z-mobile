@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
-import { ScrollView, Text } from 'react-native'
-import { ActivityIndicator, Alert } from 'react-native'
+import { ScrollView, Text, View, ActivityIndicator, Alert } from 'react-native'
 import { login } from '../firebase/api'
 import Colors from '../styles/Colors'
-import { AZButton, AZCard, AZDivider, AZInput, AZSingleView } from '../components/ui'
-import { getIdToken } from 'firebase/auth'
+import { AZButton, AZCard, AZDivider, AZIconInput, AZInput, AZSingleView } from '../components/ui'
 
 const dividerStyle = { paddingVertical: 10 }
 const outerBtnStyle = { marginVertical: 8 }
@@ -33,17 +31,17 @@ const LoginScreen = ({ route, navigation }) => {
     const handleLoginPress = () => {
         setLoading(true)
         login(email, password)
-        .then(_ => {
-          //  setLoading(false)
-          console.log(_.user)
-         // const token = await getIdToken()
-        })
-        .catch(err => {
-            console.log(err)
-            Alert.alert('Authentication failed.', 'Please check your username and password and try again.', [
-                { text: 'OK', onPress: () => setLoading(false) }
-            ])
-        })
+            .then(_ => {
+                //  setLoading(false)
+                console.log(_.user)
+                // const token = await getIdToken()
+            })
+            .catch(err => {
+                console.log(err)
+                Alert.alert('Authentication failed.', 'Please check your username and password and try again.', [
+                    { text: 'OK', onPress: () => setLoading(false) }
+                ])
+            })
     }
 
     const handleRedirectToSignupPress = () => navigation.navigate("Signup")
@@ -60,17 +58,19 @@ const LoginScreen = ({ route, navigation }) => {
                         onChangeText={setEmail}
                         disabled={loading}
                     />
-                    <AZInput
-                        label="Password"
-                        autoCapitalize='none'
-                        autoComplete='off'
-                        autoCorrect={false} 
-                        secureTextEntry 
-                        value={password}
-                        onChangeText={setPassword}
-                        disabled={loading}
-                     />
-                    { loading ? <ActivityIndicator size="large" color={Colors.primary} /> : <AZButton title="Login" outerStyle={outerBtnStyle} onPress={handleLoginPress} /> }
+                    <View>
+                        <Text style={{ marginBottom: 4 }}>Password</Text>
+                        <AZIconInput
+                            autoCapitalize='none'
+                            autoComplete='off'
+                            autoCorrect={false}
+                            secureTextEntry
+                            value={password}
+                            onChangeText={setPassword}
+                            editable={!loading}
+                        />
+                    </View>
+                    {loading ? <ActivityIndicator size="large" color={Colors.primary} /> : <AZButton title="Login" outerStyle={outerBtnStyle} onPress={handleLoginPress} />}
                     <AZDivider style={dividerStyle}>or</AZDivider>
                     <AZButton
                         title="Sign Up"
@@ -81,11 +81,11 @@ const LoginScreen = ({ route, navigation }) => {
                         onPress={handleRedirectToSignupPress}
                         disabled={loading}
                     />
-                    <Text 
-                        style={{textAlign: 'center', color: Colors.primary, textDecorationLine: 'underline', marginTop: 12}}
+                    <Text
+                        style={{ textAlign: 'center', color: Colors.primary, textDecorationLine: 'underline', marginTop: 12 }}
                         onPress={() => navigation.navigate("Forgot Password")}
-                        >
-                            Forgot Password?
+                    >
+                        Forgot Password?
                     </Text>
                 </AZCard>
             </AZSingleView>

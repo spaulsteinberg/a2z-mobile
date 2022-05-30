@@ -26,7 +26,6 @@ const Settings = ({ navigation }) => {
     }
 
     const resetNonAuthStates = () => {
-        console.log("here")
         dispatch(resetProfile())
     }
 
