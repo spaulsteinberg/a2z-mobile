@@ -1,10 +1,11 @@
 import React from 'react'
-import { AZInput } from '../ui'
+import { StyleSheet } from 'react-native'
+import { AZIconInput } from '../ui'
 
 const PasswordChangeForm = ({ currentPassword, newPassword, confirmNewPassword, setCurrentPassword, setNewPassword, setConfirmNewPassword }) => {
     return (
         <>
-            <AZInput
+            <AZIconInput
                 value={currentPassword}
                 onChangeText={setCurrentPassword}
                 placeholder="Enter your current password"
@@ -12,9 +13,9 @@ const PasswordChangeForm = ({ currentPassword, newPassword, confirmNewPassword, 
                 autoComplete='off'
                 autoCorrect={false}
                 secureTextEntry
-                style={{ marginVertical: 12 }}
+                style={styles.input}
             />
-            <AZInput
+            <AZIconInput
                 value={newPassword}
                 onChangeText={setNewPassword}
                 placeholder="Enter your new password"
@@ -22,9 +23,9 @@ const PasswordChangeForm = ({ currentPassword, newPassword, confirmNewPassword, 
                 autoComplete='off'
                 secureTextEntry
                 autoCorrect={false}
-                style={{ marginVertical: 12 }}
+                style={styles.input}
             />
-            <AZInput
+            <AZIconInput
                 value={confirmNewPassword}
                 onChangeText={setConfirmNewPassword}
                 placeholder="Confirm your new password"
@@ -32,10 +33,16 @@ const PasswordChangeForm = ({ currentPassword, newPassword, confirmNewPassword, 
                 autoComplete='off'
                 secureTextEntry
                 autoCorrect={false}
-                style={{ marginVertical: 12 }}
+                style={styles.input}
             />
         </>
     )
 }
+
+const styles = StyleSheet.create({
+    input: {
+        marginVertical: 12
+    }
+})
 
 export default PasswordChangeForm
