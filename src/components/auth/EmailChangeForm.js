@@ -1,5 +1,6 @@
 import React from 'react'
-import { AZInput } from '../ui'
+import { StyleSheet } from 'react-native'
+import { AZIconInput, AZInput } from '../ui'
 
 const EmailChangeForm = ({ newEmail, confirmNewEmail, confirmPassword, setNewEmail, setConfirmNewEmail, setConfirmPassword}) => {
     return (
@@ -9,16 +10,16 @@ const EmailChangeForm = ({ newEmail, confirmNewEmail, confirmPassword, setNewEma
                 onChangeText={setNewEmail} 
                 placeholder="Enter your new email"
                 autoCapitalize='none'
-                style={{marginVertical: 12}} 
+                style={styles.input} 
             />
             <AZInput 
                 value={confirmNewEmail}
                 onChangeText={setConfirmNewEmail} 
                 placeholder="Confirm your new email" 
                 autoCapitalize='none'
-                style={{marginVertical: 12}} 
+                style={styles.input} 
             />
-            <AZInput
+            <AZIconInput
                 value={confirmPassword}
                 onChangeText={setConfirmPassword}
                 placeholder="Re-enter Password"
@@ -26,10 +27,16 @@ const EmailChangeForm = ({ newEmail, confirmNewEmail, confirmPassword, setNewEma
                 autoComplete='off'
                 autoCorrect={false}
                 secureTextEntry
-                style={{marginVertical: 12}}
+                style={styles.input}
             />
         </>
     )
 }
+
+const styles = StyleSheet.create({
+    input: {
+        marginVertical: 12
+    }
+})
 
 export default EmailChangeForm
