@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { StyleSheet, TextInput, View } from 'react-native'
 import Colors from '../../styles/Colors'
-import { AZIconButton } from '../ui'
+import AZIconButton from '../ui/AZIconButton'
 
 const AZIconInput = React.forwardRef(({ style, justify = "end", secureTextEntry = false, ...rest}, ref) => {
   const [isSecure, setIsSecure] = useState(secureTextEntry)
