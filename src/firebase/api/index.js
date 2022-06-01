@@ -7,6 +7,7 @@ import updateAccount from './account/updateAccount'
 import getUserToken from './getUserToken'
 import reauthenticateWithEmailAndPassword from './auth/reauthentication'
 import { changeUserEmail, changeUserPassword, sendUserResetEmail } from './auth/updateCredentials'
+import getTickets from './ticket/getTickets'
 
 export { 
     login, 
@@ -19,5 +20,6 @@ export {
     changeUserEmail, 
     changeUserPassword, 
     sendUserResetEmail,
-    reauthenticateWithEmailAndPassword 
+    reauthenticateWithEmailAndPassword,
+    getTickets
 }

@@ -4,7 +4,7 @@ import Colors from '../../styles/Colors'
 import globalStyles from '../../styles/global'
 import { Ionicons, Feather, Foundation } from '@expo/vector-icons';
 
-const TicketCard = ({ onPress, outerStyle, innerStyle }) => {
+const TicketCard = ({ data, onPress, outerStyle, innerStyle }) => {
     return (
         <View style={[styles.container, globalStyles.iosShadow, outerStyle]}>
             <Pressable onPress={onPress} android_ripple={{ color: "#fff" }} style={({ pressed }) => [styles.innerContainer, innerStyle, pressed && styles.pressed]}>
@@ -21,15 +21,15 @@ const TicketCard = ({ onPress, outerStyle, innerStyle }) => {
                 </View>
                 <View style={styles.moreInfo}>
                     <View style={styles.moreInfoTack}>
-                        <Text>190.23 mi</Text>
+                        <Text>{data.distance_formatted}</Text>
                         <Feather name="truck" size={24} color={Colors.secondary} />
                     </View>
                     <View style={styles.moreInfoTack}>
-                        <Text>3hr 4min</Text>
+                        <Text>{data.est_duration}</Text>
                         <Ionicons name="hourglass-outline" size={24} color={Colors.secondary} />
                     </View>
                     <View style={styles.moreInfoTack}>
-                        <Text>.45/mi</Text>
+                        <Text>{data.rate_per_mile}/mi</Text>
                         <Foundation name="dollar-bill" size={24} color={Colors.secondary} />
                     </View>
                 </View>
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
         height: 150,
         width: '100%',
         borderRadius: 8,
-        padding: 8
+        padding: 8,
     },
     innerContainer: {
         height: '100%',
@@ -98,7 +98,8 @@ const styles = StyleSheet.create({
     },
     moreInfoTack: {
         alignItems: 'center',
-        marginHorizontal: 16
+        marginHorizontal: 16,
+        flex: 1
     }
 })
 

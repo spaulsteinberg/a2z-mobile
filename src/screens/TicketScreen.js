@@ -41,24 +41,22 @@ const TicketScreen = () => {
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollView}>
-      <View style={globalStyles.screenContainer}>
-        { content }
-      </View>
-    </ScrollView>
+    <View style={[globalStyles.screenContainer, styles.container]}>
+      {content}
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
-  scrollView: {
-    flexGrow: 1
-  },
   turnOnLocationButtonOuter: {
     alignItems: 'center',
     marginVertical: 24
   },
   outerRefresh: {
     backgroundColor: Colors.secondary600
+  },
+  container: {
+    flex: 1
   }
 })
 
