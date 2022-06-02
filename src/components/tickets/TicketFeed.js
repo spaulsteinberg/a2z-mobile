@@ -25,21 +25,23 @@ const TicketFeed = ({ askForLocationHandler }) => {
     navigation.navigate("TicketDetail", { id: indx })
   }
 
-  const DATA = [
-    { id: 1, value: 1 },
-    { id: 2, value: 2 },
-    { id: 3, value: 3 },
-    { id: 4, value: 4 },
-    { id: 5, value: 5 },
-    { id: 6, value: 6 }
-  ]
-
   return (
     <View style={styles.container}>
       <View style={styles.container}>
-        <RefreshLocationFeed onPress={askForLocationHandler} />
+        {!data && <RefreshLocationFeed onPress={askForLocationHandler} />}
         {loading && <ActivityIndicator size={24} color={Colors.primary} />}
-        {data && <FlatList numColumns={1} data={data} renderItem={({ item }) => <TicketCard data={item} onPress={() => handlePress(item.ticketId)} />} keyExtractor={item => item.ticketId} />}
+        {
+          data &&
+          <FlatList
+            ListHeaderComponent={<RefreshLocationFeed onPress={askForLocationHandler} />}
+            ListFooterComponent={<Text style={{ textAlign: 'center' }}>Displaying all {data.length} results.</Text>}
+            numColumns={1}
+            data={data}
+            renderItem={({ item }) => <TicketCard data={item} onPress={() => handlePress(item.id)} />}
+            keyExtractor={item => item.id}
+            showsVerticalScrollIndicator={false}
+          />
+        }
         {error && <Text>error</Text>}
       </View>
     </View>
