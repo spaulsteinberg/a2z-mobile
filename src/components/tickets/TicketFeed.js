@@ -7,6 +7,7 @@ import getAllTickets from '../../store/redux/effects/ticketEffects'
 import Colors from '../../styles/Colors'
 import RefreshLocationFeed from './RefreshLocationFeed'
 import TicketCard from './TicketCard'
+import TicketFeedError from './TicketFeedError'
 
 const TicketFeed = ({ askForLocationHandler }) => {
   const navigation = useNavigation()
@@ -42,7 +43,7 @@ const TicketFeed = ({ askForLocationHandler }) => {
             showsVerticalScrollIndicator={false}
           />
         }
-        {error && <Text>error</Text>}
+        { error && <TicketFeedError error={error} /> }
       </View>
     </View>
   )
@@ -50,7 +51,7 @@ const TicketFeed = ({ askForLocationHandler }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   }
 })
 
