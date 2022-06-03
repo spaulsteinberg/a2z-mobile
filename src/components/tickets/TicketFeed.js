@@ -22,8 +22,8 @@ const TicketFeed = ({ askForLocationHandler }) => {
     hydrateFeed()
   }, [])
 
-  const handlePress = indx => {
-    navigation.navigate("TicketDetail", { id: indx })
+  const handlePress = id => {
+    navigation.navigate("TicketDetail", { id })
   }
 
   return (

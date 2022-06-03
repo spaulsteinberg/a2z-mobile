@@ -7,11 +7,10 @@ const getAllTickets = createAsyncThunk(
     async (token) => {
         try {
             const ticketResponse = await getTickets(token)
-            console.log(ticketResponse.data)
             return ticketResponse.data.tickets;
         } catch (err) {
             console.log(err)
-            return "Something went wrong."
+            return Promise.reject(err)
         }
     }
 )

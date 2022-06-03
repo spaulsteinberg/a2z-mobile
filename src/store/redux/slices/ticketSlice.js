@@ -21,10 +21,10 @@ const ticketSlice = createSlice({
             state.data = payload;
             state.error = null
         },
-        [getAllTickets.rejected]: (state, { payload }) => {
+        [getAllTickets.rejected]: state => {
             state.loading = false;
             state.data = null;
-            state.error = payload
+            state.error = "An error occurred. Please reload and try again."
         }
     }
 })

@@ -40,7 +40,7 @@ const AuthNavigation = ({ Stack }) => {
       <Stack.Screen name="BottonNav" component={BottomNav} options={{headerShown: false}} />
       <Stack.Screen name="Settings" component={Settings} />
       <Stack.Screen name="CredentialChange" component={CredentialChange} options={{ title: 'Update Credentials' }} />
-      <Stack.Screen name="TicketDetail" component={TicketDetailScreen} options={{title: "Details"}} />
+      <Stack.Screen name="TicketDetail" component={TicketDetailScreen} options={{title: "Ticket Details"}} />
     </Stack.Navigator>
   )
 }
