@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserToken } from '../../firebase/api'
@@ -13,10 +13,13 @@ const TicketFeed = ({ askForLocationHandler }) => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
   const { loading, data, error } = useSelector(state => state.tickets)
+  const [feedError, setFeedError] = useState(false)
 
   useEffect(() => {
     const hydrateFeed = async () => {
-      dispatch(getAllTickets(await getUserToken()))
+      try {
+        dispatch(getAllTickets(await getUserToken()))
+      } catch (err) { setFeedError("Something went wrong loading feed. Please try again.") }
     }
 
     hydrateFeed()
@@ -44,6 +47,7 @@ const TicketFeed = ({ askForLocationHandler }) => {
           />
         }
         { error && <TicketFeedError error={error} /> }
+        { feedError && <TicketFeedError error={feedError} /> }
       </View>
     </View>
   )
