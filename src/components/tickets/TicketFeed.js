@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native'
+import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserToken } from '../../firebase/api'
 import getAllTickets from '../../store/redux/effects/ticketEffects'
@@ -8,18 +8,23 @@ import Colors from '../../styles/Colors'
 import RefreshLocationFeed from './RefreshLocationFeed'
 import TicketCard from './TicketCard'
 import TicketFeedError from './TicketFeedError'
+import TicketFeedHeader from './TicketFeedHeader'
 
 const TicketFeed = ({ askForLocationHandler }) => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
   const { loading, data, error } = useSelector(state => state.tickets)
   const [feedError, setFeedError] = useState(false)
+  const [tokenLoading, setTokenLoading] = useState(false)
 
   useEffect(() => {
     const hydrateFeed = async () => {
       try {
+        setTokenLoading(true)
         dispatch(getAllTickets(await getUserToken()))
+        setFeedError(false)
       } catch (err) { setFeedError("Something went wrong loading feed. Please try again.") }
+      finally { setTokenLoading(false) }
     }
 
     hydrateFeed()
@@ -32,13 +37,12 @@ const TicketFeed = ({ askForLocationHandler }) => {
   return (
     <View style={styles.container}>
       <View style={styles.container}>
-        {!data && <RefreshLocationFeed onPress={askForLocationHandler} />}
-        {loading && <ActivityIndicator size={24} color={Colors.primary} />}
+        { !data && <RefreshLocationFeed onPress={askForLocationHandler} /> }
+        { loading || tokenLoading ? <ActivityIndicator size={24} color={Colors.primary} /> : null }
         {
           data &&
           <FlatList
-            ListHeaderComponent={<RefreshLocationFeed onPress={askForLocationHandler} />}
-            ListFooterComponent={<Text style={{ textAlign: 'center' }}>Displaying all {data.length} results.</Text>}
+            ListHeaderComponent={<TicketFeedHeader onPress={askForLocationHandler} numResults={data.length} />}
             numColumns={1}
             data={data}
             renderItem={({ item }) => <TicketCard data={item} onPress={() => handlePress(item.id)} />}
