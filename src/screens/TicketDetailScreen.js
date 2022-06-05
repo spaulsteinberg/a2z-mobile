@@ -7,6 +7,8 @@ import TicketDetailTopCard from '../components/tickets/TicketDetailTopCard'
 import TicketDetailBottomCard from '../components/tickets/TicketDetailBottomCard'
 import { getTicketById, getUserToken } from '../firebase/api'
 import TicketFeedError from '../components/tickets/TicketFeedError'
+import { useDispatch, useSelector } from 'react-redux'
+import { addTicketDetail } from '../store/redux/slices/ticketDetailSlice'
 
 const TicketDetailScreen = ({ route, navigation }) => {
 
@@ -14,6 +16,8 @@ const TicketDetailScreen = ({ route, navigation }) => {
   const [ticketData, setTicketData] = useState(null)
   const [profileData, setProfileData] = useState(null)
   const [ticketError, setTicketError] = useState('')
+  const dispatch = useDispatch()
+  const details = useSelector(state => state.details)
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -26,7 +30,8 @@ const TicketDetailScreen = ({ route, navigation }) => {
       setLoadingTicket(true)
       try {
         const { data } = await getTicketById(await getUserToken(), route.params.id)
-        console.log(data)
+        console.log(data, route.params.id)
+        dispatch(addTicketDetail({id: route.params.id, data}))
         setTicketData(data.ticket.tickets)
         setProfileData(data.profile.data)
         setTicketError('')
@@ -39,7 +44,14 @@ const TicketDetailScreen = ({ route, navigation }) => {
       setLoadingTicket(false)
     }
 
-    fetchTicket()
+    if (details.ids.includes(route.params.id)) {
+      console.log("DETAILS", details)
+      setTicketData(details.tickets[route.params.id].ticket.tickets)
+      setProfileData(details.tickets[route.params.id].profile.data)
+    } else {
+      console.log("not in details")
+      fetchTicket()
+    }
   }, [])
 
   let content;
