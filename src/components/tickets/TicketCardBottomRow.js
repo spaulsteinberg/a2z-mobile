@@ -5,20 +5,30 @@ import { Ionicons, Foundation, MaterialCommunityIcons } from '@expo/vector-icons
 
 const TicketCardBottomRow = ({ distance, duration, ratePerMile }) => {
     return (
-        <View style={styles.moreInfo}>
-            <View style={styles.moreInfoTack}>
-                <Text>{distance} mi</Text>
-                <MaterialCommunityIcons name="road" size={24} color={Colors.secondary} />
+        <>
+            <View style={styles.moreInfo}>
+                <View style={styles.moreInfoTack}>
+                    <Text>{distance} mi</Text>
+                </View>
+                <View style={styles.moreInfoTack}>
+                    <Text>{duration.replace("hours", "h").replace("day", "d").replace("mins", "m")}</Text>
+                </View>
+                <View style={styles.moreInfoTack}>
+                    <Text>{ratePerMile}/mi</Text>
+                </View>
             </View>
-            <View style={styles.moreInfoTack}>
-                <Text>{duration.replace("hours", "h").replace("day", "d").replace("mins", "m")}</Text>
-                <Ionicons name="hourglass-outline" size={24} color={Colors.secondary} />
+            <View style={styles.moreInfo}>
+                <View style={styles.moreInfoTack}>
+                    <MaterialCommunityIcons name="road" size={24} color={Colors.secondary} />
+                </View>
+                <View style={styles.moreInfoTack}>
+                    <Ionicons name="hourglass-outline" size={24} color={Colors.secondary} />
+                </View>
+                <View style={styles.moreInfoTack}>
+                    <Foundation name="dollar-bill" size={24} color={Colors.secondary} />
+                </View>
             </View>
-            <View style={styles.moreInfoTack}>
-                <Text>{ratePerMile}/mi</Text>
-                <Foundation name="dollar-bill" size={24} color={Colors.secondary} />
-            </View>
-        </View>
+        </>
     )
 }
 
