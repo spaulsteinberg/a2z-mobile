@@ -11,7 +11,7 @@ const TicketCardBottomRow = ({ distance, duration, ratePerMile }) => {
                 <MaterialCommunityIcons name="road" size={24} color={Colors.secondary} />
             </View>
             <View style={styles.moreInfoTack}>
-                <Text>{duration}</Text>
+                <Text>{duration.replace("hours", "h").replace("day", "d").replace("mins", "m")}</Text>
                 <Ionicons name="hourglass-outline" size={24} color={Colors.secondary} />
             </View>
             <View style={styles.moreInfoTack}>

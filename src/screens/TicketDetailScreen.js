@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   cardStyle: {
-    height: 250
+    minHeight: 250
   },
   topCard: {
     marginBottom: 24
