@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Alert, ScrollView, StyleSheet, ActivityIndicator, Button } from 'react-native'
+import { View, Alert, StyleSheet, ActivityIndicator } from 'react-native'
 import { requestForegroundPermissionsAsync, getCurrentPositionAsync } from 'expo-location'
 import globalStyles from '../styles/global'
 import Colors from '../styles/Colors'

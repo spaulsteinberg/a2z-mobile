@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserToken } from '../../firebase/api'
+import { useUserLocation } from '../../store/context/LocationContext'
 import getAllTickets from '../../store/redux/effects/ticketEffects'
 import Colors from '../../styles/Colors'
 import RefreshLocationFeed from './RefreshLocationFeed'
@@ -10,7 +11,7 @@ import TicketCard from './TicketCard'
 import TicketFeedError from './TicketFeedError'
 import TicketFeedHeader from './TicketFeedHeader'
 
-const TicketFeed = ({ askForLocationHandler }) => {
+const TicketFeed = ({ location, askForLocationHandler }) => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
   const { loading, data, error } = useSelector(state => state.tickets)
@@ -21,14 +22,16 @@ const TicketFeed = ({ askForLocationHandler }) => {
     const hydrateFeed = async () => {
       try {
         setTokenLoading(true)
-        dispatch(getAllTickets(await getUserToken()))
+        dispatch(getAllTickets({ token: await getUserToken(), lat: location.latitude, lng: location.longitude }))
         setFeedError(false)
-      } catch (err) { setFeedError("Something went wrong loading feed. Please try again.") }
+      } catch (err) {
+        console.log(err)
+        setFeedError("Something went wrong loading feed. Please try again.")
+       }
       finally { setTokenLoading(false) }
     }
-
-    hydrateFeed()
-  }, [])
+    if (location) hydrateFeed()
+  }, [location])
 
   const handlePress = id => {
     navigation.navigate("TicketDetail", { id })

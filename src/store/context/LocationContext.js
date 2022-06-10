@@ -16,7 +16,7 @@ export const LocationProvider = ({ children }) => {
         AsyncStorage.getItem(KEY)
         .then(value => {
             if (value) {
-                setUserLocation(value)
+                setUserLocation(JSON.parse(value))
             }
         })
         .catch(err => console.log("Could not retrieve item", err))
