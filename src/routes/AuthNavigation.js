@@ -1,9 +1,9 @@
 import React from 'react';
 import { AZIconButton } from '../components/ui';
-import { TicketScreen, Settings, CredentialChange, ProfileScreen, TicketDetailScreen } from '../screens';
+import { TicketScreen, Settings, CredentialChange, ProfileScreen, TicketDetailScreen, HistoryScreen } from '../screens';
 import { useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { FontAwesome, Ionicons } from '@expo/vector-icons';
+import { FontAwesome, Ionicons, FontAwesome5 } from '@expo/vector-icons';
 import Colors from '../styles/Colors';
 import getNavHeaderOptions from '../shared/functions/getNavHeaderStyles';
 
@@ -29,6 +29,12 @@ const BottomNav = () => (
       title: 'Profile',
       tabBarIcon: ({ color, size }) => (
         <Ionicons name="md-person-sharp" size={24} color={color} />
+      )
+    }} />
+    <Tab.Screen name="HistoryScreen" component={HistoryScreen} options={{
+      title: 'History',
+      tabBarIcon: ({ color, size }) => (
+        <FontAwesome5 name="history" size={24} color={color} />
       )
     }} />
   </Tab.Navigator>

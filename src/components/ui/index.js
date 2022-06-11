@@ -6,5 +6,6 @@ import AZSingleView from "./AZSingleView";
 import AZIconButton from "./AZIconButton";
 import AZFeedback from "./AZFeedback";
 import AZIconInput from "./AZIconInput";
+import AZTile from "./AZTile";
 
-export { AZButton, AZCard, AZDivider, AZInput, AZSingleView, AZIconButton, AZFeedback, AZIconInput }
+export { AZButton, AZCard, AZDivider, AZInput, AZSingleView, AZIconButton, AZFeedback, AZIconInput, AZTile }
