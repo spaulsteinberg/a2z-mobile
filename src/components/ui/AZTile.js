@@ -3,12 +3,13 @@ import { Pressable, StyleSheet, View, Text } from 'react-native'
 import Colors from '../../styles/Colors'
 import globalStyles from '../../styles/global'
 
-const AZTile = ({ title, color = Colors.primary, height = 150 }) => {
+const AZTile = ({ title, outerStyle, innerStyle, textStyle, children, color = Colors.primary, height = 150 }) => {
   return (
-    <View style={[styles.box, globalStyles.iosShadow, { backgroundColor: color, height: height }]}>
-            <Pressable style={({ pressed }) => [pressed && styles.pressed, styles.button]}>
-                <View style={styles.innerContainer}>
-                    <Text style={styles.text}>{title}</Text>
+    <View style={[styles.box, globalStyles.iosShadow, outerStyle, { backgroundColor: color, height: height }]}>
+            <Pressable style={({ pressed }) => [pressed && styles.pressed, styles.button]} android_ripple={{ color: "#fff" }}>
+                <View style={[styles.innerContainer, innerStyle]}>
+                    { title && <Text style={[styles.text, textStyle]}>{title}</Text> }
+                    { children }
                 </View>
             </Pressable>
         </View>

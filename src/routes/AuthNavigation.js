@@ -25,16 +25,16 @@ const BottomNav = () => (
         <FontAwesome name="ticket" size={24} color={color} />
       )
     }} />
-    <Tab.Screen name="ProfileScreen" component={ProfileScreen} options={{
-      title: 'Profile',
-      tabBarIcon: ({ color, size }) => (
-        <Ionicons name="md-person-sharp" size={24} color={color} />
-      )
-    }} />
     <Tab.Screen name="HistoryScreen" component={HistoryScreen} options={{
       title: 'History',
       tabBarIcon: ({ color, size }) => (
         <FontAwesome5 name="history" size={24} color={color} />
+      )
+    }} />
+    <Tab.Screen name="ProfileScreen" component={ProfileScreen} options={{
+      title: 'Profile',
+      tabBarIcon: ({ color, size }) => (
+        <Ionicons name="md-person-sharp" size={24} color={color} />
       )
     }} />
   </Tab.Navigator>

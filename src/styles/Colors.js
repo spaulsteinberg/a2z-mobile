@@ -5,6 +5,7 @@ const Colors = {
     primary900: "#cce5ff",
     secondary: "#ff1a75",
     secondary600: "#ff4d94",
+    secondary800: "#ff99c2",
     warning: "#ffc107",
     error: "red",
     neutral: "#6c757d"
