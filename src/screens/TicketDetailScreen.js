@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react'
-import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native'
-import { AZIconButton } from '../components/ui'
+import { ActivityIndicator, Alert, ScrollView, StyleSheet, View } from 'react-native'
+import { AZButton, AZIconButton } from '../components/ui'
 import globalStyles from '../styles/global'
 import Colors from '../styles/Colors'
 import TicketDetailTopCard from '../components/tickets/TicketDetailTopCard'
@@ -30,7 +30,6 @@ const TicketDetailScreen = ({ route, navigation }) => {
       setLoadingTicket(true)
       try {
         const { data } = await getTicketById(await getUserToken(), route.params.id)
-        console.log(data, route.params.id)
         dispatch(addTicketDetail({id: route.params.id, data}))
         setTicketData(data.ticket.tickets)
         setProfileData(data.profile.data)
@@ -45,7 +44,6 @@ const TicketDetailScreen = ({ route, navigation }) => {
     }
 
     if (details.ids.includes(route.params.id)) {
-      console.log("DETAILS", details)
       setTicketData(details.tickets[route.params.id].ticket.tickets)
       setProfileData(details.tickets[route.params.id].profile.data)
     } else {
@@ -54,11 +52,19 @@ const TicketDetailScreen = ({ route, navigation }) => {
     }
   }, [])
 
+  const handleOpenAlert = () => {
+    Alert.alert("Apply for this ticket?", "By applying, we will send your profile to the poster of the ticket.", [
+      { text: 'Cancel', style: 'cancel', onPress: () => console.log("cancel") },
+      { text: 'Apply!', style: 'default', onPress: () => console.log("send apply") }
+    ])
+  }
+
   let content;
   if (loadingTicket) content = <ActivityIndicator size={24} color={Colors.primary} />
   else if (ticketData) {
     content = (
       <>
+        <AZButton title="Apply!" onPress={handleOpenAlert} textStyle={styles.btnTextStyle} innerStyle={styles.btnInnerStyle} outerStyle={styles.btnOuterStyle} />
         <TicketDetailTopCard ticket={ticketData} cardStyle={styles.cardStyle} rowStyle={styles.flexRow} />
         <TicketDetailBottomCard cardStyle={styles.cardStyle} profile={profileData} />
       </>
@@ -102,6 +108,14 @@ const styles = StyleSheet.create({
     height: 125,
     width: 125,
     borderRadius: 62.5
+  },
+  btnOuterStyle: {
+    marginBottom: 12
+  },
+  btnTextStyle: {
+  },
+  btnInnerStyle: {
+    paddingHorizontal: 24
   }
 })
 

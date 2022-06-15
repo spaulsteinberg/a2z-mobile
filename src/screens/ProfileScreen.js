@@ -31,7 +31,6 @@ const ProfileScreen = () => {
   }, [focused])
 
   useEffect(() => {
-    console.log(data)
     const fetchProfile = async () => dispatch(getProfile(await getUserToken()))
 
     if (!data) {
