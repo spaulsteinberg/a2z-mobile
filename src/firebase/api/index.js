@@ -9,6 +9,8 @@ import reauthenticateWithEmailAndPassword from './auth/reauthentication'
 import { changeUserEmail, changeUserPassword, sendUserResetEmail } from './auth/updateCredentials'
 import getTickets from './ticket/getTickets'
 import getTicketById from './ticket/getTicketById'
+import getUserApplicationStatus from './history/getUserApplicationStatus'
+import postUserTicketInquiry from './history/postUserTicketInquiry'
 
 export { 
     login, 
@@ -23,5 +25,7 @@ export {
     sendUserResetEmail,
     reauthenticateWithEmailAndPassword,
     getTickets,
-    getTicketById
+    getTicketById,
+    getUserApplicationStatus,
+    postUserTicketInquiry
 }

@@ -11,7 +11,6 @@ const ticketDetail = createSlice({
     initialState,
     reducers: {
         addTicketDetail: (state, { payload: { id, data} }) => {
-            console.log(id, data)
             state.tickets[id] = data;
             state.ids.push(id)
         }

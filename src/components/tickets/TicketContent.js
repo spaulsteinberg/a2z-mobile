@@ -3,7 +3,6 @@ import TicketFeed from './TicketFeed'
 import TurnOnLocationButton from './TurnOnLocationButton'
 
 const TicketContent = ({ userLocation, askForLocationHandler }) => {
-
     return (
         <>
             {

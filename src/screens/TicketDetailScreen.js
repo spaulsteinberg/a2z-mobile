@@ -5,7 +5,7 @@ import globalStyles from '../styles/global'
 import Colors from '../styles/Colors'
 import TicketDetailTopCard from '../components/tickets/TicketDetailTopCard'
 import TicketDetailBottomCard from '../components/tickets/TicketDetailBottomCard'
-import { getTicketById, getUserToken } from '../firebase/api'
+import { getTicketById, getUserToken, getUserApplicationStatus, postUserTicketInquiry } from '../firebase/api'
 import TicketFeedError from '../components/tickets/TicketFeedError'
 import { useDispatch, useSelector } from 'react-redux'
 import { addTicketDetail } from '../store/redux/slices/ticketDetailSlice'
@@ -29,7 +29,10 @@ const TicketDetailScreen = ({ route, navigation }) => {
     const fetchTicket = async () => {
       setLoadingTicket(true)
       try {
-        const { data } = await getTicketById(await getUserToken(), route.params.id)
+        const token = await getUserToken()
+        const { data } = await getTicketById(token, route.params.id)
+        const res = await getUserApplicationStatus(token, route.params.id)
+        console.log(res.data)
         dispatch(addTicketDetail({id: route.params.id, data}))
         setTicketData(data.ticket.tickets)
         setProfileData(data.profile.data)
@@ -52,10 +55,20 @@ const TicketDetailScreen = ({ route, navigation }) => {
     }
   }, [])
 
+  const postUserInquiry = async () => {
+    try {
+      const token = await getUserToken()
+      const res = await postUserTicketInquiry(token, route.params.id)
+      console.log(res.data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   const handleOpenAlert = () => {
     Alert.alert("Apply for this ticket?", "By applying, we will send your profile to the poster of the ticket.", [
       { text: 'Cancel', style: 'cancel', onPress: () => console.log("cancel") },
-      { text: 'Apply!', style: 'default', onPress: () => console.log("send apply") }
+      { text: 'Apply!', style: 'default', onPress: postUserInquiry }
     ])
   }
 

@@ -56,7 +56,6 @@ const ProfileScreen = () => {
       zipCode: Yup.number().required("Zip code cannot be left blank.")
     }),
     onSubmit: async (values) => {
-      console.log(values)
       setSubmitting(true)
       try {
         await updateAccount(values, await getUserToken())
