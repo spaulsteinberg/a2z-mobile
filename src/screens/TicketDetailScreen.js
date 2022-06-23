@@ -8,7 +8,8 @@ import TicketDetailBottomCard from '../components/tickets/TicketDetailBottomCard
 import { getTicketById, getUserToken, getUserApplicationStatus, postUserTicketInquiry } from '../firebase/api'
 import TicketFeedError from '../components/tickets/TicketFeedError'
 import { useDispatch, useSelector } from 'react-redux'
-import { addTicketDetail } from '../store/redux/slices/ticketDetailSlice'
+import { addAppliedTicket, addTicketDetail } from '../store/redux/slices/ticketDetailSlice'
+import TicketApplicationStatus from '../components/tickets/TicketApplicationStatus'
 
 const TicketDetailScreen = ({ route, navigation }) => {
 
@@ -16,6 +17,8 @@ const TicketDetailScreen = ({ route, navigation }) => {
   const [ticketData, setTicketData] = useState(null)
   const [profileData, setProfileData] = useState(null)
   const [ticketError, setTicketError] = useState('')
+  const [userHasApplied, setUserHasApplied] = useState(false)
+  const [userAppliedLoading, setUserAppliedLoading] = useState(false)
   const dispatch = useDispatch()
   const details = useSelector(state => state.details)
 
@@ -32,8 +35,8 @@ const TicketDetailScreen = ({ route, navigation }) => {
         const token = await getUserToken()
         const { data } = await getTicketById(token, route.params.id)
         const res = await getUserApplicationStatus(token, route.params.id)
-        console.log(res.data)
-        dispatch(addTicketDetail({id: route.params.id, data}))
+        setUserHasApplied(res.data)
+        dispatch(addTicketDetail({ id: route.params.id, data, hasApplied: res.data }))
         setTicketData(data.ticket.tickets)
         setProfileData(data.profile.data)
         setTicketError('')
@@ -49,6 +52,8 @@ const TicketDetailScreen = ({ route, navigation }) => {
     if (details.ids.includes(route.params.id)) {
       setTicketData(details.tickets[route.params.id].ticket.tickets)
       setProfileData(details.tickets[route.params.id].profile.data)
+      console.log(details.appliedTo)
+      setUserHasApplied(details.appliedTo.includes(route.params.id))
     } else {
       console.log("not in details")
       fetchTicket()
@@ -57,11 +62,18 @@ const TicketDetailScreen = ({ route, navigation }) => {
 
   const postUserInquiry = async () => {
     try {
+      setUserAppliedLoading(true)
       const token = await getUserToken()
       const res = await postUserTicketInquiry(token, route.params.id)
       console.log(res.data)
+      setUserHasApplied(res.data)
+      if (res.data) {
+        dispatch(addAppliedTicket(route.params.id))
+      }
     } catch (err) {
-      console.log(err)
+      console.log(err, err.message)
+    } finally {
+      setUserAppliedLoading(false)
     }
   }
 
@@ -77,7 +89,7 @@ const TicketDetailScreen = ({ route, navigation }) => {
   else if (ticketData) {
     content = (
       <>
-        <AZButton title="Apply!" onPress={handleOpenAlert} textStyle={styles.btnTextStyle} innerStyle={styles.btnInnerStyle} outerStyle={styles.btnOuterStyle} />
+        <TicketApplicationStatus onPress={handleOpenAlert} userHasApplied={userHasApplied} loading={userAppliedLoading} />
         <TicketDetailTopCard ticket={ticketData} cardStyle={styles.cardStyle} rowStyle={styles.flexRow} />
         <TicketDetailBottomCard cardStyle={styles.cardStyle} profile={profileData} />
       </>
@@ -122,14 +134,6 @@ const styles = StyleSheet.create({
     width: 125,
     borderRadius: 62.5
   },
-  btnOuterStyle: {
-    marginBottom: 12
-  },
-  btnTextStyle: {
-  },
-  btnInnerStyle: {
-    paddingHorizontal: 24
-  }
 })
 
 export default TicketDetailScreen
