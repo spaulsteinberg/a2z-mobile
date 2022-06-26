@@ -1,6 +1,7 @@
 import React from 'react'
 import { Pressable, View, Text, StyleSheet } from 'react-native'
-import Colors from '../../styles/Colors'
+import Colors from '../../styles/Colors';
+import PropTypes from 'prop-types';
 
 const AZButton = ({ title, onPress, rippleColor, outerStyle, innerStyle, textStyle, disabled }) => {
     return (
@@ -39,5 +40,15 @@ const styles = StyleSheet.create({
         opacity: .5
     }
 })
+
+AZButton.propTypes = {
+    title: PropTypes.string,
+    onPress: PropTypes.func,
+    rippleColor: PropTypes.string,
+    outerStyle: PropTypes.object,
+    innerStyle: PropTypes.any,
+    textStyle: PropTypes.any,
+    disabled: PropTypes.bool,
+}
 
 export default AZButton
