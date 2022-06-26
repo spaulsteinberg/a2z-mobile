@@ -1,10 +1,10 @@
 import { useFormik } from 'formik';
 import React, { useEffect, useRef, useState } from 'react'
 import Colors from '../../styles/Colors';
-import { AZInput, AZButton, AZFeedback } from '../ui';
+import { AZInput, AZButton, AZFeedback, AZIconInput } from '../ui';
 import * as Yup from 'yup'
 import { createAccount, getUserToken, signup } from '../../firebase/api';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, Text } from 'react-native';
 
 const signupBtn = { outerStyle: { marginVertical: 8, }, innerStyle: { backgroundColor: Colors.secondary, } }
 
@@ -33,12 +33,12 @@ const SignupForm = ({ }) => {
         onSubmit: async (values) => {
             setSubmitState({ loading: true, error: null })
 
-            const { firstName, lastName, email, password, confirmPassword} = values;
+            const { firstName, lastName, email, password, confirmPassword } = values;
 
             if (password !== confirmPassword) {
                 return setSubmitState({ loading: false, error: invalidPassword })
             }
-            
+
             // try requests separately, give message indicting status
             try {
                 const userResponse = await signup(email, password)
@@ -68,13 +68,13 @@ const SignupForm = ({ }) => {
         <React.Fragment>
             <AZInput
                 ref={fnameRef}
-                label="First Name" 
+                label="First Name"
                 value={formik.values.firstName}
                 onBlur={formik.handleBlur('firstName')}
                 onChangeText={formik.handleChange('firstName')}
                 invalid={formik.errors.firstName}
             />
-            { formik.errors.firstName && <AZFeedback message={formik.errors.firstName} severity="error" /> }
+            {formik.errors.firstName && <AZFeedback message={formik.errors.firstName} severity="error" />}
             <AZInput
                 label="Last Name"
                 value={formik.values.lastName}
@@ -82,37 +82,40 @@ const SignupForm = ({ }) => {
                 onChangeText={formik.handleChange('lastName')}
                 invalid={formik.errors.lastName}
             />
-            { formik.errors.lastName && <AZFeedback message={formik.errors.lastName} severity="error" /> }
+            {formik.errors.lastName && <AZFeedback message={formik.errors.lastName} severity="error" />}
             <AZInput
                 label="Email Address"
                 autoCapitalize="none"
                 value={formik.values.email}
                 onBlur={formik.handleBlur('email')}
-                onChangeText={formik.handleChange('email')} 
+                onChangeText={formik.handleChange('email')}
                 invalid={formik.errors.email}
             />
-            { formik.errors.email && <AZFeedback message={formik.errors.email} severity="error" /> }
-            <AZInput 
-                label="Password" 
-                autoCapitalize="none"
-                value={formik.values.password} 
-                onBlur={formik.handleBlur('password')}
+            {formik.errors.email && <AZFeedback message={formik.errors.email} severity="error" />}
+            <Text style={{ marginBottom: 4 }}>Password</Text>
+            <AZIconInput
+                autoCapitalize='none'
+                autoComplete='off'
+                autoCorrect={false}
+                secureTextEntry
+                value={formik.values.password}
                 onChangeText={formik.handleChange('password')}
-                invalid={formik.errors.password}
-                secureTextEntry 
+                style={{marginBottom: 12}}
             />
-            { formik.errors.password && <AZFeedback message={formik.errors.password} severity="error" /> }
-            <AZInput 
-                label="Confirm Password" 
-                autoCapitalize="none"
-                value={formik.values.confirmPassword} 
+            {formik.errors.password && <AZFeedback message={formik.errors.password} severity="error" />}
+            <Text style={{ marginBottom: 4 }}>Confirm Password</Text>
+            <AZIconInput
+                autoCapitalize='none'
+                autoComplete='off'
+                autoCorrect={false}
+                secureTextEntry
                 onBlur={formik.handleBlur('confirmPassword')}
+                value={formik.values.confirmPassword}
                 onChangeText={formik.handleChange('confirmPassword')}
-                invalid={formik.errors.confirmPassword}
-                secureTextEntry 
+                style={{marginBottom: 12}}
             />
-            { formik.errors.confirmPassword && <AZFeedback message={formik.errors.confirmPassword} severity="error" /> }
-            { submitState?.error === invalidPassword && <AZFeedback message={invalidPassword} severity="error" /> }
+            {formik.errors.confirmPassword && <AZFeedback message={formik.errors.confirmPassword} severity="error" />}
+            {submitState?.error === invalidPassword && <AZFeedback message={invalidPassword} severity="error" />}
             {
                 submitState.loading ? <ActivityIndicator size="large" color={Colors.primary} /> : <AZButton title="Sign Up" onPress={formik.handleSubmit} outerStyle={signupBtn.outerStyle} innerStyle={signupBtn.innerStyle} />
             }

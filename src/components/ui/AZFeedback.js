@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import Colors from '../../styles/Colors'
+import PropTypes from 'prop-types'
 
 const AZFeedback = ({ message, severity, ...rest }) => {
   return (
@@ -18,5 +19,10 @@ const styles = StyleSheet.create({
       color: 'green'
     }
 })
+
+AZFeedback.propTypes = {
+  message: PropTypes.string.isRequired,
+  severity: PropTypes.string
+}
 
 export default AZFeedback
