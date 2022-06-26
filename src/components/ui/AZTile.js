@@ -2,6 +2,7 @@ import React from 'react'
 import { Pressable, StyleSheet, View, Text } from 'react-native'
 import Colors from '../../styles/Colors'
 import globalStyles from '../../styles/global'
+import PropTypes from 'prop-types'
 
 const AZTile = ({ title, outerStyle, innerStyle, textStyle, children, color = Colors.primary, height = 150 }) => {
   return (
@@ -40,5 +41,14 @@ const styles = StyleSheet.create({
         color: "#fff"
     }
 })
+
+AZTile.propTypes = {
+    title: PropTypes.string,
+    outerStyle: PropTypes.any,
+    innerStyle: PropTypes.any,
+    textStyle: PropTypes.any,
+    color: PropTypes.string,
+    height: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+}
 
 export default AZTile

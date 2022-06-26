@@ -42,7 +42,7 @@ AZInput.propTypes = {
     label: PropTypes.string,
     style: PropTypes.any,
     disabled: PropTypes.bool,
-    invalid: PropTypes.bool,
+    invalid: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     textStyle: PropTypes.any
 }
 
