@@ -45,7 +45,7 @@ AZButton.propTypes = {
     title: PropTypes.string,
     onPress: PropTypes.func,
     rippleColor: PropTypes.string,
-    outerStyle: PropTypes.object,
+    outerStyle: PropTypes.any,
     innerStyle: PropTypes.any,
     textStyle: PropTypes.any,
     disabled: PropTypes.bool,
