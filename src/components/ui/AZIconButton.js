@@ -1,6 +1,7 @@
 import React from 'react'
 import { Ionicons } from '@expo/vector-icons';
 import { View, Pressable, StyleSheet } from 'react-native'
+import PropTypes from 'prop-types'
 
 const AZIconButton = ({ icon, size, color, onPress, outerStyle, innerStyle }) => {
   return (
@@ -25,5 +26,14 @@ const styles = StyleSheet.create({
       opacity: 0.7
     }
 })
+
+AZIconButton.propTypes = {
+  icon: PropTypes.node,
+  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  color: PropTypes.string,
+  onPress: PropTypes.func,
+  outerStyle: PropTypes.any,
+  innerStyle: PropTypes.any
+}
 
 export default AZIconButton
