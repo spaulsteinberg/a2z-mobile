@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, TextInput, StyleSheet, Platform } from 'react-native'
 import Colors from '../../styles/Colors'
+import PropTypes from 'prop-types';
 
 const AZInput = React.forwardRef(({ label, style, disabled, invalid, textStyle, ...rest }, ref) => {
     return (
@@ -36,5 +37,13 @@ const styles = StyleSheet.create({
         backgroundColor: 'lightgray'
     }
 })
+
+AZInput.propTypes = {
+    label: PropTypes.string,
+    style: PropTypes.any,
+    disabled: PropTypes.bool,
+    invalid: PropTypes.bool,
+    textStyle: PropTypes.any
+}
 
 export default AZInput
