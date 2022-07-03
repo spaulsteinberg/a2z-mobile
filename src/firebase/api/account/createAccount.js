@@ -1,5 +1,6 @@
 import axios from 'axios';
+import { URL_ENDPOINT } from '../info';
 
-const createAccount = (firstName, lastName, email, phoneNumber, zipCode, token) => axios.post('http://127.0.0.1:3000/api/v1/account', { firstName, lastName, email, phoneNumber, zipCode, isDriver: true }, { headers: { token } })
+const createAccount = (firstName, lastName, email, phoneNumber, zipCode, token) => axios.post(`${URL_ENDPOINT}/account`, { firstName, lastName, email, phoneNumber, zipCode, isDriver: true }, { headers: { token } })
 
 export default createAccount
