@@ -72,26 +72,26 @@ const SignupForm = ({ }) => {
                 value={formik.values.firstName}
                 onBlur={formik.handleBlur('firstName')}
                 onChangeText={formik.handleChange('firstName')}
-                invalid={formik.errors.firstName}
+                invalid={formik.errors.firstName && formik.touched.firstName}
             />
-            {formik.errors.firstName && <AZFeedback message={formik.errors.firstName} severity="error" />}
+            {formik.errors.firstName && formik.touched.firstName && <AZFeedback message={formik.errors.firstName} severity="error" />}
             <AZInput
                 label="Last Name"
                 value={formik.values.lastName}
                 onBlur={formik.handleBlur('lastName')}
                 onChangeText={formik.handleChange('lastName')}
-                invalid={formik.errors.lastName}
+                invalid={formik.errors.lastName && formik.touched.lastName}
             />
-            {formik.errors.lastName && <AZFeedback message={formik.errors.lastName} severity="error" />}
+            {formik.errors.lastName && formik.touched.lastName && <AZFeedback message={formik.errors.lastName} severity="error" />}
             <AZInput
                 label="Email Address"
                 autoCapitalize="none"
                 value={formik.values.email}
                 onBlur={formik.handleBlur('email')}
                 onChangeText={formik.handleChange('email')}
-                invalid={formik.errors.email}
+                invalid={formik.errors.email && formik.touched.email}
             />
-            {formik.errors.email && <AZFeedback message={formik.errors.email} severity="error" />}
+            {formik.errors.email && formik.touched.email && <AZFeedback message={formik.errors.email} severity="error" />}
             <Text style={{ marginBottom: 4 }}>Password</Text>
             <AZIconInput
                 autoCapitalize='none'
@@ -102,7 +102,7 @@ const SignupForm = ({ }) => {
                 onChangeText={formik.handleChange('password')}
                 style={{marginBottom: 12}}
             />
-            {formik.errors.password && <AZFeedback message={formik.errors.password} severity="error" />}
+            {formik.errors.password && formik.touched.password && <AZFeedback message={formik.errors.password} severity="error" />}
             <Text style={{ marginBottom: 4 }}>Confirm Password</Text>
             <AZIconInput
                 autoCapitalize='none'
@@ -114,10 +114,10 @@ const SignupForm = ({ }) => {
                 onChangeText={formik.handleChange('confirmPassword')}
                 style={{marginBottom: 12}}
             />
-            {formik.errors.confirmPassword && <AZFeedback message={formik.errors.confirmPassword} severity="error" />}
+            {formik.errors.confirmPassword && formik.touched.confirmPassword && <AZFeedback message={formik.errors.confirmPassword} severity="error" />}
             {submitState?.error === invalidPassword && <AZFeedback message={invalidPassword} severity="error" />}
             {
-                submitState.loading ? <ActivityIndicator size="large" color={Colors.primary} /> : <AZButton title="Sign Up" onPress={formik.handleSubmit} outerStyle={signupBtn.outerStyle} innerStyle={signupBtn.innerStyle} />
+                submitState.loading ? <ActivityIndicator size="large" color={Colors.primary} /> : <AZButton title="Sign Up" onPress={formik.handleSubmit} disabled={!formik.isValid} outerStyle={signupBtn.outerStyle} innerStyle={signupBtn.innerStyle} />
             }
         </React.Fragment>
     )
