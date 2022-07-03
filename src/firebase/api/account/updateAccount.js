@@ -1,5 +1,6 @@
 import axios from 'axios'
+import { URL_ENDPOINT } from '../info'
 
-const updateAccount = (payload, token) => axios.post('http://192.168.1.198:3000/api/v1/account', payload, { headers: { token } })
+const updateAccount = (payload, token) => axios.post(`${URL_ENDPOINT}/account`, payload, { headers: { token } })
 
 export default updateAccount

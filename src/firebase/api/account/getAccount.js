@@ -1,5 +1,6 @@
 import axios from 'axios';
+import { URL_ENDPOINT } from '../info';
 
-const getAccount = token => axios.get('http://192.168.1.198:3000/api/v1/account', { headers: { token } })
+const getAccount = token => axios.get(`${URL_ENDPOINT}/account`, { headers: { token } })
 
 export default getAccount
