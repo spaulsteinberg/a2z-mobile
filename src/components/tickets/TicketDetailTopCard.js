@@ -1,9 +1,11 @@
 import React from 'react'
-import { StyleSheet } from 'react-native'
-import { AZCard } from '../ui'
+import { StyleSheet, View } from 'react-native'
+import { AZCard, AZIconTextButton } from '../ui'
 import TicketDetailBottomRows from './TicketDetailBottomRows'
 import TicketDetailCenterRow from './TicketDetailCenterRow'
 import TicketDetailTopRow from './TicketDetailTopRow'
+import { Feather } from '@expo/vector-icons';
+import Colors from '../../styles/Colors'
 
 const TicketDetailTopCard = ({ ticket, cardStyle, rowStyle }) => {
     return (
@@ -21,6 +23,9 @@ const TicketDetailTopCard = ({ ticket, cardStyle, rowStyle }) => {
                 description={ticket.description}
                 rowStyle={rowStyle} 
             />
+            <View style={styles.viewMapContainer}>
+                <AZIconTextButton icon={<Feather name="map" size={16} color="white" />} text="View Map" onPress={() => console.log("press")} iconLeft innerStyle={{backgroundColor: Colors.primary600}} rippleColor="yellow" />
+            </View>
         </AZCard>
     )
 }
@@ -28,6 +33,12 @@ const TicketDetailTopCard = ({ ticket, cardStyle, rowStyle }) => {
 const styles = StyleSheet.create({
     topCard: {
         marginBottom: 24
+    },
+    viewMapContainer: {
+        flex: 1, 
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        marginTop: 8
     }
 })
 

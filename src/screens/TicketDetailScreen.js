@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { ActivityIndicator, Alert, ScrollView, StyleSheet, View } from 'react-native'
-import { AZButton, AZIconButton } from '../components/ui'
+import { AZIconButton } from '../components/ui'
 import globalStyles from '../styles/global'
 import Colors from '../styles/Colors'
 import TicketDetailTopCard from '../components/tickets/TicketDetailTopCard'
@@ -92,6 +92,7 @@ const TicketDetailScreen = ({ route, navigation }) => {
         <TicketApplicationStatus onPress={handleOpenAlert} userHasApplied={userHasApplied} loading={userAppliedLoading} />
         <TicketDetailTopCard ticket={ticketData} cardStyle={styles.cardStyle} rowStyle={styles.flexRow} />
         <TicketDetailBottomCard cardStyle={styles.cardStyle} profile={profileData} />
+        
       </>
     )
   } else if (ticketError) {
