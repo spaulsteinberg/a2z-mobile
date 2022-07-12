@@ -1,13 +1,14 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
-import { AZCard, AZIconTextButton } from '../ui'
+import { StyleSheet } from 'react-native'
+import { AZCard } from '../ui'
 import TicketDetailBottomRows from './TicketDetailBottomRows'
 import TicketDetailCenterRow from './TicketDetailCenterRow'
 import TicketDetailTopRow from './TicketDetailTopRow'
-import { Feather } from '@expo/vector-icons';
-import Colors from '../../styles/Colors'
+import { useNavigation } from '@react-navigation/native'
+import TicketMapButton from './TicketMapButton'
 
 const TicketDetailTopCard = ({ ticket, cardStyle, rowStyle }) => {
+    const navigation = useNavigation()
     return (
         <AZCard style={[cardStyle, styles.topCard]}>
             <TicketDetailTopRow origin={ticket.start_city_state} destination={ticket.end_city_state} rowStyle={rowStyle} />
@@ -23,9 +24,7 @@ const TicketDetailTopCard = ({ ticket, cardStyle, rowStyle }) => {
                 description={ticket.description}
                 rowStyle={rowStyle} 
             />
-            <View style={styles.viewMapContainer}>
-                <AZIconTextButton icon={<Feather name="map" size={16} color="white" />} text="View Map" onPress={() => console.log("press")} iconLeft innerStyle={{backgroundColor: Colors.primary600}} rippleColor="yellow" />
-            </View>
+            <TicketMapButton onPress={() => navigation.navigate("MapTicket")} />
         </AZCard>
     )
 }
@@ -34,12 +33,6 @@ const styles = StyleSheet.create({
     topCard: {
         marginBottom: 24
     },
-    viewMapContainer: {
-        flex: 1, 
-        alignItems: 'center', 
-        justifyContent: 'center', 
-        marginTop: 8
-    }
 })
 
 export default TicketDetailTopCard

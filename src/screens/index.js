@@ -7,6 +7,7 @@ import ForgotPasswordScreen from "./ForgotPasswordScreen";
 import ProfileScreen from "./ProfileScreen";
 import TicketDetailScreen from "./TicketDetailScreen";
 import HistoryScreen from "./HistoryScreen";
+import MapTicketScreen from "./MapTicketScreen";
 
 export { 
     LoginScreen, 
@@ -17,5 +18,6 @@ export {
     ForgotPasswordScreen, 
     ProfileScreen, 
     TicketDetailScreen,
-    HistoryScreen
+    HistoryScreen,
+    MapTicketScreen
 }
