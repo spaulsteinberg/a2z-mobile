@@ -24,7 +24,7 @@ const TicketDetailTopCard = ({ ticket, cardStyle, rowStyle }) => {
                 description={ticket.description}
                 rowStyle={rowStyle} 
             />
-            <TicketMapButton onPress={() => navigation.navigate("MapTicket", { coordinates: ticket.geoPoints, addresses: { start: ticket.start_address, end: ticket.destination_address } })} />
+            <TicketMapButton onPress={() => navigation.navigate("MapTicket", { coordinates: ticket.geoPoints, addresses: { start: ticket.start_address, end: ticket.destination_address }, places: { ...ticket.places } })} />
         </AZCard>
     )
 }

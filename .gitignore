@@ -1,7 +1,7 @@
 node_modules/
 .expo/
 dist/
-npm-debug.*
+npm-debug.*vs
 *.jks
 *.p8
 *.p12
@@ -17,3 +17,4 @@ web-build/
 .env
 
 firebase.json
+google.json

@@ -14,7 +14,7 @@ const TicketCardBottomRow = ({ distance, duration, ratePerMile }) => {
                     <Text>{duration.replace("hours", "h").replace("day", "d").replace("mins", "m")}</Text>
                 </View>
                 <View style={styles.moreInfoTack}>
-                    <Text>{ratePerMile}/mi</Text>
+                    <Text>${ratePerMile}/mi</Text>
                 </View>
             </View>
             <View style={styles.moreInfo}>
