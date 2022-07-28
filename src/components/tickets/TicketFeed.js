@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
-import React, { useEffect, useState } from 'react'
-import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native'
+import React, { useCallback, useEffect, useState } from 'react'
+import { ActivityIndicator, FlatList, RefreshControl, StyleSheet, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserToken } from '../../firebase/api'
 import getAllTickets from '../../store/redux/effects/ticketEffects'
@@ -16,6 +16,7 @@ const TicketFeed = ({ location, askForLocationHandler }) => {
   const { loading, data, error } = useSelector(state => state.tickets)
   const [feedError, setFeedError] = useState(false)
   const [tokenLoading, setTokenLoading] = useState(false)
+  const [refreshing, setRefreshing] = useState(false)
 
   useEffect(() => {
     const hydrateFeed = async () => {
@@ -36,6 +37,12 @@ const TicketFeed = ({ location, askForLocationHandler }) => {
     navigation.navigate("TicketDetail", { id })
   }
 
+  const onRefresh = useCallback( async () => {
+    setTokenLoading(true)
+    dispatch(getAllTickets({ token: await getUserToken().catch(err => console.log(err)), lat: location.latitude, lng: location.longitude }))
+    setTokenLoading(false)
+  })
+
   return (
     <View style={styles.container}>
       <View style={styles.container}>
@@ -50,6 +57,7 @@ const TicketFeed = ({ location, askForLocationHandler }) => {
             renderItem={({ item }) => <TicketCard data={item} onPress={() => handlePress(item.id)} />}
             keyExtractor={item => item.id}
             showsVerticalScrollIndicator={false}
+            refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
           />
         }
         { error && <TicketFeedError error={error} /> }

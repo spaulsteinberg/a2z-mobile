@@ -29,7 +29,6 @@ const MapTicketScreen = ({ route, navigation }) => {
             setLoadingDirections(true)
             const token = await getUserToken()
             const { data } = await getDirections(token, ticketId, places.start, places.end).catch(err => { console.log(err); setLoadingDirections(false) })
-            console.log("RESULT", data.coordinates)
             setDirections(data.coordinates)
             setLoadingDirections(false)
         }
