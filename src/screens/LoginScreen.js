@@ -3,6 +3,8 @@ import { ScrollView, Text, View, ActivityIndicator, Alert } from 'react-native'
 import { login } from '../firebase/api'
 import Colors from '../styles/Colors'
 import { AZButton, AZCard, AZDivider, AZIconInput, AZInput, AZSingleView } from '../components/ui'
+import { useDispatch } from 'react-redux'
+import getProfile from '../store/redux/effects/profileEffects'
 
 const dividerStyle = { paddingVertical: 10 }
 const outerBtnStyle = { marginVertical: 8 }
@@ -28,13 +30,14 @@ const LoginScreen = ({ route, navigation }) => {
 
     const [loading, setLoading] = useState(false)
 
+    const dispatch = useDispatch()
+
     const handleLoginPress = () => {
         setLoading(true)
         login(email, password)
             .then(_ => {
-                //  setLoading(false)
-                console.log(_.user)
-                // const token = await getIdToken()
+                console.log("LOGIN ------------", _.user)
+                dispatch(getProfile(_.user.stsTokenManager.accessToken))
             })
             .catch(err => {
                 console.log(err)
