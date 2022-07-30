@@ -1,17 +1,41 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, Alert, Image, Pressable, ActivityIndicator } from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
-import { requestMediaLibraryPermissionsAsync, launchImageLibraryAsync, MediaTypeOptions } from 'expo-image-picker'
+import { requestMediaLibraryPermissionsAsync, launchImageLibraryAsync, launchCameraAsync, MediaTypeOptions, useCameraPermissions, PermissionStatus } from 'expo-image-picker'
 import uploadProfilePhoto from '../../firebase/api/account/uploadProfilePhoto';
 import { getUserToken } from '../../firebase/api';
 import { useDispatch } from 'react-redux';
 import { setProfilePhoto } from '../../store/redux/slices/profileSlice';
 import Colors from '../../styles/Colors';
 
-const ProfilePicture = ({ photo, isEditable }) => {
+const CAMERA = "CAMERA";
+const MEDIA = "MEDIA"
 
+const ProfilePicture = ({ photo, isEditable }) => {
     const dispatch = useDispatch()
     const [newImageLoading, setNewImageLoading] = useState(false)
+    const [cameraPermissionInformation, requestPermission] = useCameraPermissions()
+
+    const getUserSourceType = () => {
+        return new Promise((resolve, _) => {
+            Alert.alert("Upload New Image", "Please choose a source", [
+                {
+                    text: 'Camera', onPress: () => resolve(CAMERA)
+                },
+                {
+                    text: 'My Files', onPress: () => resolve(MEDIA)
+                },
+            ])
+        })
+    }
+
+    const verifyCameraPermission = async () => {
+        if (cameraPermissionInformation.status === PermissionStatus.UNDETERMINED || cameraPermissionInformation.status === PermissionStatus.DENIED) {
+            const response = await requestPermission()
+            return response.granted
+        } 
+        return true
+    }
 
     const promptUserForPermission = async () => {
         let permission = await requestMediaLibraryPermissionsAsync()
@@ -20,17 +44,31 @@ const ProfilePicture = ({ photo, isEditable }) => {
 
     const openImagePicker = async () => {
         if (!isEditable) return;
-        
-        const hasPermissions = await promptUserForPermission();
-        if (!hasPermissions) {
-            return Alert.alert("Insufficient Permissions", "You must grant this app permission to access your photos.")
+
+        const userSourceType = await getUserSourceType()
+        let hasPermissions, result;
+        if (userSourceType === CAMERA) {
+            hasPermissions = await verifyCameraPermission();
+            if (!hasPermissions) {
+                return Alert.alert("Unauthorized", "You must grant app permissions to use this part of the app.")
+            }
+            result = await launchCameraAsync({
+                allowsEditing: true,
+                aspect: [4, 4],
+                quality: 0.8,
+            });
+        } else {
+            hasPermissions = await promptUserForPermission();
+            if (!hasPermissions) {
+                return Alert.alert("Insufficient Permissions", "You must grant this app permission to access your photos.")
+            }
+            result = await launchImageLibraryAsync({
+                mediaTypes: MediaTypeOptions.Images,
+                allowsEditing: true,
+                aspect: [4, 4],
+                quality: 0.5
+            })
         }
-        let result = await launchImageLibraryAsync({
-            mediaTypes: MediaTypeOptions.Images,
-            allowsEditing: true,
-            aspect: [4, 4],
-            quality: 0.5
-        })
 
         if (!result.cancelled) {
             try {
@@ -68,7 +106,7 @@ const ProfilePicture = ({ photo, isEditable }) => {
     return (
         <View style={styles.imageOuter}>
             <Pressable style={styles.imageContainer} onPress={openImagePicker}>
-                { content }
+                {content}
             </Pressable>
         </View>
     )
