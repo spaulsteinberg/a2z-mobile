@@ -1,8 +1,8 @@
 import React from 'react'
-import { StyleSheet, Text, useWindowDimensions, View } from 'react-native'
+import { ActivityIndicator, StyleSheet, Text, useWindowDimensions, View } from 'react-native'
 import { AZTile } from '../ui'
 
-const HistoryCategoryTile = ({ title, number, color }) => {
+const HistoryCategoryTile = ({ loading, title, number, color, loadingColor = "white" }) => {
 
     const { width } = useWindowDimensions()
 
@@ -15,12 +15,18 @@ const HistoryCategoryTile = ({ title, number, color }) => {
     return (
         <AZTile color={color}>
             <View style={styles.container}>
-                <View style={[styles.valueContainer, wStyle]}>
-                    <Text style={styles.valueText}>{number}</Text>
-                </View>
-                <View style={styles.descriptionContainer}>
-                    <Text style={styles.descriptionText}>{title}</Text>
-                </View>
+                {
+                    !loading ? (
+                        <>
+                            <View style={[styles.valueContainer, wStyle]}>
+                                <Text style={styles.valueText}>{number}</Text>
+                            </View>
+                            <View style={styles.descriptionContainer}>
+                                <Text style={styles.descriptionText}>{title}</Text>
+                            </View>
+                        </>
+                    ) : <ActivityIndicator size="large" color={loadingColor} />
+                }
             </View>
         </AZTile>
     )

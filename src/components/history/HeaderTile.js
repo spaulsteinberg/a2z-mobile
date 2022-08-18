@@ -1,14 +1,20 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native'
 import { AZTile } from '../ui'
 
-const HeaderTile = ({ tileColor, number, icon, containerText}) => {
+const HeaderTile = ({ loading, tileColor, number, icon, containerText, loadingColor = "white" }) => {
     return (
         <AZTile height="100%" color={tileColor} innerStyle={styles.tileInner}>
             <View style={styles.section}>
-                <Text style={[styles.sectionText, styles.section]}>{number}</Text>
-                { icon }
-                <Text style={styles.section}>{containerText}</Text>
+                {
+                    !loading ? (
+                        <>
+                            <Text style={[styles.sectionText, styles.section]}>{number}</Text>
+                            { icon }
+                            <Text style={styles.section}>{containerText}</Text>
+                        </>
+                    ) : <ActivityIndicator size="large" color={loadingColor} />
+                }
             </View>
         </AZTile>
     )
@@ -17,14 +23,15 @@ const HeaderTile = ({ tileColor, number, icon, containerText}) => {
 const styles = StyleSheet.create({
     section: {
         flex: 1,
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     sectionText: {
         fontSize: 18,
         textAlign: 'center'
     },
     tileInner: {
-        padding: 8
+        padding: 8,
     }
 })
 

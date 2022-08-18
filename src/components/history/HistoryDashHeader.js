@@ -6,7 +6,7 @@ import HistoryHeader from './HistoryHeader'
 import { FontAwesome, Octicons, Feather } from '@expo/vector-icons';
 import HeaderTile from './HeaderTile'
 
-const HistoryDashHeader = ({ earned, miles, trips }) => {
+const HistoryDashHeader = ({ loading, earned, miles, trips }) => {
 
     const outerTileStyle = { minHeight: 200 }
     const innerTileStyle = { alignItems: 'flex-start', justifyContent: 'flex-start', width: '100%' }
@@ -28,9 +28,9 @@ const HistoryDashHeader = ({ earned, miles, trips }) => {
                 <View style={styles.innerContainer}>
                     <HistoryHeader />
                     <View style={styles.statisticSection}>
-                        <HeaderTile tileColor="#ccffb3" number={formatNumber(earned)} icon={<FontAwesome style={styles.section} name="dollar" size={24} color="green" />} containerText="Earned" />
-                        <HeaderTile tileColor="#99ddff" number={`${formatNumber(miles)}`} icon={<Octicons style={styles.section} name="milestone" size={24} color={Colors.secondary600} />} containerText="Miles" />
-                        <HeaderTile tileColor="#df80ff" number={trips} icon={<Feather style={styles.section} name="check" size={24} color={Colors.primary} />} containerText="Trips" />
+                        <HeaderTile loading={loading} tileColor="#ccffb3" number={formatNumber(earned)} icon={<FontAwesome style={styles.section} name="dollar" size={24} color="green" />} containerText="Earned" />
+                        <HeaderTile loading={loading} tileColor="#99ddff" number={`${formatNumber(miles)}`} icon={<Octicons style={styles.section} name="milestone" size={24} color={Colors.secondary600} />} containerText="Miles" />
+                        <HeaderTile loading={loading} tileColor="#df80ff" number={trips} icon={<Feather style={styles.section} name="check" size={24} color={Colors.primary} />} containerText="Trips" />
                     </View>
                 </View>
             </AZTile>
