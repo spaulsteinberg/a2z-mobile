@@ -11,6 +11,7 @@ import getTickets from './ticket/getTickets'
 import getTicketById from './ticket/getTicketById'
 import getUserApplicationStatus from './history/getUserApplicationStatus'
 import postUserTicketInquiry from './history/postUserTicketInquiry'
+import getUserApplications from './history/getUserApplications'
 
 export { 
     login, 
@@ -27,5 +28,6 @@ export {
     getTickets,
     getTicketById,
     getUserApplicationStatus,
-    postUserTicketInquiry
+    postUserTicketInquiry,
+    getUserApplications
 }
