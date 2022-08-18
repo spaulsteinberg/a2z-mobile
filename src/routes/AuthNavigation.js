@@ -1,6 +1,6 @@
 import React from 'react';
 import { AZIconButton } from '../components/ui';
-import { TicketScreen, Settings, CredentialChange, ProfileScreen, TicketDetailScreen, HistoryScreen, MapTicketScreen } from '../screens';
+import { TicketScreen, Settings, CredentialChange, ProfileScreen, TicketDetailScreen, HistoryScreen, MapTicketScreen, HistoryCategoryDetailScreen } from '../screens';
 import { useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { FontAwesome, Ionicons, FontAwesome5 } from '@expo/vector-icons';
@@ -48,6 +48,7 @@ const AuthNavigation = ({ Stack }) => {
       <Stack.Screen name="CredentialChange" component={CredentialChange} options={{ title: 'Update Credentials' }} />
       <Stack.Screen name="TicketDetail" component={TicketDetailScreen} options={{title: "Ticket Details"}} />
       <Stack.Screen name="MapTicket" component={MapTicketScreen} options={{title: "Map Ticket"}} />
+      <Stack.Screen name="HistoryDetail" component={HistoryCategoryDetailScreen} />
     </Stack.Navigator>
   )
 }

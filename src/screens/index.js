@@ -8,6 +8,7 @@ import ProfileScreen from "./ProfileScreen";
 import TicketDetailScreen from "./TicketDetailScreen";
 import HistoryScreen from "./HistoryScreen";
 import MapTicketScreen from "./MapTicketScreen";
+import HistoryCategoryDetailScreen from "./HistoryCategoryDetailScreen";
 
 export { 
     LoginScreen, 
@@ -19,5 +20,6 @@ export {
     ProfileScreen, 
     TicketDetailScreen,
     HistoryScreen,
-    MapTicketScreen
+    MapTicketScreen,
+    HistoryCategoryDetailScreen
 }

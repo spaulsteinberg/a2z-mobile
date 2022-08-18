@@ -2,7 +2,7 @@ import React from 'react'
 import { ActivityIndicator, StyleSheet, Text, useWindowDimensions, View } from 'react-native'
 import { AZTile } from '../ui'
 
-const HistoryCategoryTile = ({ loading, title, number, color, loadingColor = "white" }) => {
+const HistoryCategoryTile = ({ onPress, loading, title, number, color, loadingColor = "white" }) => {
 
     const { width } = useWindowDimensions()
 
@@ -13,7 +13,7 @@ const HistoryCategoryTile = ({ loading, title, number, color, loadingColor = "wh
     }
 
     return (
-        <AZTile color={color}>
+        <AZTile color={color} onPress={() => onPress(title)}>
             <View style={styles.container}>
                 {
                     !loading ? (

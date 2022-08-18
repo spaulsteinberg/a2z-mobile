@@ -4,10 +4,10 @@ import Colors from '../../styles/Colors'
 import globalStyles from '../../styles/global'
 import PropTypes from 'prop-types'
 
-const AZTile = ({ title, outerStyle, innerStyle, textStyle, children, color = Colors.primary, height = 150 }) => {
+const AZTile = ({ title, outerStyle, innerStyle, textStyle, children, onPress = () => {}, color = Colors.primary, height = 150 }) => {
   return (
     <View style={[styles.box, globalStyles.iosShadow, outerStyle, { backgroundColor: color, height: height }]}>
-            <Pressable style={({ pressed }) => [pressed && styles.pressed, styles.button]} android_ripple={{ color: "#fff" }}>
+            <Pressable onPress={onPress} style={({ pressed }) => [pressed && styles.pressed, styles.button]} android_ripple={{ color: "#fff" }}>
                 <View style={[styles.innerContainer, innerStyle]}>
                     { title && <Text style={[styles.text, textStyle]}>{title}</Text> }
                     { children }
