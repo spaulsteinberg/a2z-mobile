@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Text, View, StyleSheet, ActivityIndicator } from 'react-native'
+import { StyleSheet, ActivityIndicator } from 'react-native'
 import { AZButton, AZCard, AZFeedback, AZInput, AZSingleView } from '../components/ui'
 import { sendUserResetEmail } from '../firebase/api'
 import Colors from '../styles/Colors'
