@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, RefreshControl, StyleSheet, View } from 'react-native'
+import { FlatList, RefreshControl, StyleSheet, View, Text } from 'react-native'
 import HistoryCategoryTile from '../components/history/HistoryCategoryTile'
 import HistoryDashHeader from '../components/history/HistoryDashHeader'
 import { getUserApplications, getUserToken } from '../firebase/api'
@@ -26,9 +26,9 @@ const HistoryScreen = ({ route, navigation }) => {
   const miles = useSelector(state => milesDrivenSelector(state))
 
   const SECTIONS = [
-    new HistorySection(OPEN_TITLE, history?.open?.length, Colors.primary600), 
-    new HistorySection(IN_PROGRESS_TITLE, history?.inProgress?.length, "blue"), 
-    new HistorySection(COMPLETED_TITLE, history?.completed?.length, "green"), 
+    new HistorySection(OPEN_TITLE, history?.open?.length, Colors.primary600),
+    new HistorySection(IN_PROGRESS_TITLE, history?.inProgress?.length, "blue"),
+    new HistorySection(COMPLETED_TITLE, history?.completed?.length, "green"),
     new HistorySection(REJECTED_TITLE, history?.rejected?.length, "red"),
     new HistorySection(CANCELLED_TITLE, history?.cancelled?.length, "orange"),
   ]
@@ -36,13 +36,13 @@ const HistoryScreen = ({ route, navigation }) => {
   useEffect(() => {
     const getApps = async () => {
       setLoading(true)
-      const { data: { data } } = 
+      const { data: { data } } =
         await getUserApplications(await getUserToken())
-              .catch(err => {
-                console.log(err)
-                setError(true)
-                setLoading(false)
-              })
+          .catch(err => {
+            console.log(err)
+            setError(true)
+            setLoading(false)
+          })
       console.log("SUCCESS", data)
       dispatch(setHistory(data))
       setLoading(false)
@@ -53,10 +53,10 @@ const HistoryScreen = ({ route, navigation }) => {
 
   const onRefresh = async () => {
     setLoading(true)
-    const { data } = 
+    const { data } =
       await getUserApplications(await getUserToken())
-        .catch(err => { 
-          console.log(err); 
+        .catch(err => {
+          console.log(err);
           setError(true)
           setLoading(false)
         })
@@ -66,7 +66,7 @@ const HistoryScreen = ({ route, navigation }) => {
 
   const handleCategoryTilePress = category => {
     let data;
-    switch(category) {
+    switch (category) {
       case OPEN_TITLE:
         data = history.open;
         break;
@@ -89,17 +89,25 @@ const HistoryScreen = ({ route, navigation }) => {
 
   return (
     <View style={[styles.container, globalStyles.screenContainer]}>
-      <View style={styles.listContainer}>
-        <FlatList
-          data={SECTIONS}
-          showsVerticalScrollIndicator={false}
-          keyExtractor={(item) => item.name}
-          ListHeaderComponent={<HistoryDashHeader loading={loading} earned={earnings} miles={miles} trips={history?.completed?.length} />}
-          renderItem={({ item }) => <HistoryCategoryTile onPress={handleCategoryTilePress} loading={loading} title={item.name} number={item.number} color={item.color} />}
-          numColumns={2}
-          refreshControl={<RefreshControl refreshing={loading} onRefresh={onRefresh} />}
-        />
-      </View>
+      {
+        !error ? (
+          <View style={styles.listContainer}>
+            <FlatList
+              data={SECTIONS}
+              showsVerticalScrollIndicator={false}
+              keyExtractor={(item) => item.name}
+              ListHeaderComponent={<HistoryDashHeader loading={loading} earned={earnings} miles={miles} trips={history?.completed?.length} />}
+              renderItem={({ item }) => <HistoryCategoryTile onPress={handleCategoryTilePress} loading={loading} title={item.name} number={item.number} color={item.color} />}
+              numColumns={2}
+              refreshControl={<RefreshControl refreshing={loading} onRefresh={onRefresh} />}
+            />
+          </View>
+        ) : (
+          <View style={styles.errorContainer}>
+            <Text style={styles.errorText}>We could not retrieve your request history at this time. Please reload and try again.</Text>
+          </View>
+        )
+      }
     </View>
   )
 }
@@ -113,6 +121,13 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
+  },
+  errorContainer: {
+    marginTop: 16
+  },
+  errorText: {
+    color: Colors.error,
+    textAlign: 'center'
   }
 })
 
