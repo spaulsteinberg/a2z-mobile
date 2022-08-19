@@ -29,8 +29,8 @@ const HistoryScreen = ({ route, navigation }) => {
     new HistorySection(OPEN_TITLE, history?.open?.length, Colors.primary600), 
     new HistorySection(IN_PROGRESS_TITLE, history?.inProgress?.length, "blue"), 
     new HistorySection(COMPLETED_TITLE, history?.completed?.length, "green"), 
-    new HistorySection(REJECTED_TITLE, history?.rejected?.length, "orange"),
-    new HistorySection(CANCELLED_TITLE, history?.cancelled?.length, "red"),
+    new HistorySection(REJECTED_TITLE, history?.rejected?.length, "red"),
+    new HistorySection(CANCELLED_TITLE, history?.cancelled?.length, "orange"),
   ]
 
   useEffect(() => {
