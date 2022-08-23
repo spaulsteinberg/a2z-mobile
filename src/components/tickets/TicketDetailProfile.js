@@ -3,6 +3,7 @@ import { Image, StyleSheet, Text, View } from 'react-native'
 import Colors from '../../styles/Colors'
 
 const TicketDetailProfile = ({ postName, postCompany, postPhoto}) => {
+    console.log(postName, postCompany, postPhoto)
     return (
         <View style={styles.container}>
             <View style={styles.flexEighth}>
@@ -13,9 +14,13 @@ const TicketDetailProfile = ({ postName, postCompany, postPhoto}) => {
                     <Text>Contact: {postName}</Text>
                     <Text>Company: {postCompany}</Text>
                 </View>
-                <View style={styles.profileImageCircle}>
-                    { postPhoto && <Image source={{uri: postPhoto}} style={styles.image} /> }
-                </View>
+                {
+                    postPhoto && postPhoto !== "" ? (
+                        <View style={styles.profileImageCircle}>
+                            <Image source={{uri: postPhoto}} style={styles.image} />
+                        </View>
+                    ) : null
+                } 
             </View>
         </View>
     )
